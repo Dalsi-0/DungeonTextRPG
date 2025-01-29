@@ -34,10 +34,15 @@ namespace DungeonTextRPG.Manager.Game
 
         public void StartGame()
         {
-
-            MyPlayer = CreatePlayerAccountrManager.instance.SetPlayerAccount();
-
-
+            if (SaveLoadManager.instance.LoadData())
+            {
+                Console.WriteLine("데이터 잇!");
+                Console.ReadKey(); // 콘솔 종료 방지
+            }
+            else
+            {
+                MyPlayer = CreatePlayerAccountrManager.instance.SetPlayerAccount();
+            }
         }
 
         public void EndGame()

@@ -35,7 +35,24 @@ namespace DungeonTextRPG.Manager.CreatePlayerAccount
             string name;
             while (true)
             {
+                Console.WriteLine();
+                Console.WriteLine("  □□□□□□□  □□□□□□□    □          □    □□□□□□□   ");
+                Console.WriteLine("        □        □                  □      □            □         ");
+                Console.WriteLine("        □        □                    □  □              □         ");
+                Console.WriteLine("        □        □□□□□□□          □                □         ");
+                Console.WriteLine("        □        □                    □  □              □         ");
+                Console.WriteLine("        □        □                  □      □            □         ");
+                Console.WriteLine("        □        □□□□□□□    □          □          □         ");
+                Console.WriteLine();
+                Console.WriteLine("           □□□□□□     □□□□□□     □□□□□□              ");
+                Console.WriteLine("           □          □   □          □  □                         ");
+                Console.WriteLine("           □          □   □          □  □                         ");
+                Console.WriteLine("           □□□□□□     □□□□□□    □      □□□             ");
+                Console.WriteLine("           □     □        □              □          □             ");
+                Console.WriteLine("           □       □      □              □          □             ");
+                Console.WriteLine("           □         □    □                □□□□□               ");
                 Console.WriteLine("----------------------------------------------------");
+                Console.WriteLine();
                 Console.WriteLine("던전 텍스트 RPG에 오신 여러분 환영합니다.");
                 Console.WriteLine("플레이어의 이름을 입력해주세요.");
                 Console.WriteLine("----------------------------------------------------");
