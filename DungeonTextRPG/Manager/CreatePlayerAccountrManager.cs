@@ -68,8 +68,7 @@ namespace DungeonTextRPG.Manager.CreatePlayerAccount
                     Console.WriteLine($"입력하신 이름은 {name}입니다.");
                     Console.WriteLine("정말로 사용하시겠습니까?");
 
-                    string[] actionMessages = { "저장", "취소" };
-                    int resultValue = GameManager.instance.PromptUserAction(actionMessages);
+                    int resultValue = GameManager.instance.PromptUserAction("저장/취소");
 
                     Console.Clear();
                     if (resultValue == 1) { break; }
@@ -88,8 +87,7 @@ namespace DungeonTextRPG.Manager.CreatePlayerAccount
                 Console.WriteLine("----------------------------------------------------");
                 Console.WriteLine($"플레이어 [{name}]의 직업을 설정합니다.");
 
-                string[] actionMessages_1 = { "전사 ", "기사", "용병" };
-                int resultValue_1 = GameManager.instance.PromptUserAction(actionMessages_1);
+                int resultValue_1 = GameManager.instance.PromptUserAction("전사/기사/용병");
 
                 Console.WriteLine();
                 Console.WriteLine("----------------------------------------------------");
@@ -115,8 +113,7 @@ namespace DungeonTextRPG.Manager.CreatePlayerAccount
                 Console.WriteLine($"선택하신 직업은 {selectedJob}입니다.");
                 Console.WriteLine("정말로 사용하시겠습니까?");
 
-                string[] actionMessages_2 = { "저장", "취소" };
-                int resultValue_2 = GameManager.instance.PromptUserAction(actionMessages_2);
+                int resultValue_2 = GameManager.instance.PromptUserAction("저장/취소");
 
                 Console.Clear();
                 if (resultValue_2 == 1) { break; }

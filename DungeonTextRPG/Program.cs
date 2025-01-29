@@ -19,7 +19,6 @@ namespace DungeonTextRPG
         static void OnProcessExit(object sender, EventArgs e)
         {
             SaveLoadManager.instance.SaveData();
-            // 저장 등 종료 시 처리할 작업을 여기에 작성
         }
     }
 }
