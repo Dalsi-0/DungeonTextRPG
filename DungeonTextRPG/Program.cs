@@ -1,10 +1,13 @@
-﻿namespace DungeonTextRPG
+﻿using DungeonTextRPG.Manager.Game;
+
+namespace DungeonTextRPG
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            GameManager.instance.StartGame();
+
         }
     }
 }
