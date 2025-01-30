@@ -35,22 +35,20 @@ namespace DungeonTextRPG.Manager.CreatePlayerAccount
             string name;
             while (true)
             {
-                VisualTextManager.instance.DrawPainting();
-                Console.WriteLine("----------------------------------------------------");
-                Console.WriteLine("던전 텍스트 RPG에 오신 여러분 환영합니다.");
-                Console.WriteLine("플레이어의 이름을 입력해주세요.");
-                Console.WriteLine("----------------------------------------------------");
-                Console.WriteLine();
+                VisualTextManager.instance.DrawPainting(PaintingUI.Divider);
+                Console.WriteLine(" 던전 텍스트 RPG에 오신 여러분 환영합니다.");
+                Console.WriteLine(" 플레이어의 이름을 입력해주세요.");
+                VisualTextManager.instance.DrawPainting(PaintingUI.Divider);
 
+                Console.Write(" >> ");
                 name = Console.ReadLine();
 
                 // 문자열이 비어 있지 않은지 확인
                 if (!string.IsNullOrWhiteSpace(name))
                 {
-                    Console.WriteLine();
-                    Console.WriteLine("----------------------------------------------------");
-                    Console.WriteLine($"입력하신 이름은 {name}입니다.");
-                    Console.WriteLine("정말로 사용하시겠습니까?");
+                    VisualTextManager.instance.DrawPainting(PaintingUI.Divider);
+                    Console.WriteLine($" 입력하신 이름은 {name}입니다.");
+                    Console.WriteLine(" 정말로 사용하시겠습니까?");
 
                     int resultValue = GameManager.instance.PromptUserAction("저장/취소");
 
@@ -60,7 +58,7 @@ namespace DungeonTextRPG.Manager.CreatePlayerAccount
                 else
                 {
                     Console.Clear();
-                    Console.WriteLine("이름을 제대로 입력해주세요. 다시 시도해주세요.");
+                    Console.WriteLine(" 이름을 제대로 입력해주세요. 다시 시도해주세요.");
                 }
             }
 
@@ -68,13 +66,13 @@ namespace DungeonTextRPG.Manager.CreatePlayerAccount
             Job playerJob = Job.None;
             while (true)
             {
-                Console.WriteLine("----------------------------------------------------");
-                Console.WriteLine($"플레이어 [{name}]의 직업을 설정합니다.");
+                VisualTextManager.instance.DrawPainting(PaintingUI.Divider);
+                Console.WriteLine($" 플레이어 [{name}]의 직업을 설정합니다.");
 
                 int resultValue_1 = GameManager.instance.PromptUserAction("전사/기사/용병");
 
                 Console.WriteLine();
-                Console.WriteLine("----------------------------------------------------");
+                VisualTextManager.instance.DrawPainting(PaintingUI.Divider);
 
                 string selectedJob = "";
 
@@ -94,8 +92,8 @@ namespace DungeonTextRPG.Manager.CreatePlayerAccount
                         break;
                 }
 
-                Console.WriteLine($"선택하신 직업은 {selectedJob}입니다.");
-                Console.WriteLine("정말로 사용하시겠습니까?");
+                Console.WriteLine($" 선택하신 직업은 {selectedJob}입니다.");
+                Console.WriteLine(" 정말로 사용하시겠습니까?");
 
                 int resultValue_2 = GameManager.instance.PromptUserAction("저장/취소");
 

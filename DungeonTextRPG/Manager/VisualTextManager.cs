@@ -8,6 +8,13 @@ public enum PaintingVillage
     Hotel,
     Dungeon
 }
+public enum PaintingUI
+{
+    None,
+    Title,
+    Divider,
+    Divider_x2
+}
 
 namespace DungeonTextRPG.Manager.VisualText
 {
@@ -31,24 +38,44 @@ namespace DungeonTextRPG.Manager.VisualText
         {
         }
 
-        public void DrawPainting()
+        public void DrawPainting(PaintingUI type)
         {
-            Console.WriteLine();
-            Console.WriteLine("  □□□□□□□  □□□□□□□    □          □    □□□□□□□   ");
-            Console.WriteLine("        □        □                  □      □            □         ");
-            Console.WriteLine("        □        □                    □  □              □         ");
-            Console.WriteLine("        □        □□□□□□□          □                □         ");
-            Console.WriteLine("        □        □                    □  □              □         ");
-            Console.WriteLine("        □        □                  □      □            □         ");
-            Console.WriteLine("        □        □□□□□□□    □          □          □         ");
-            Console.WriteLine();
-            Console.WriteLine("           □□□□□□     □□□□□□     □□□□□□              ");
-            Console.WriteLine("           □          □   □          □  □                         ");
-            Console.WriteLine("           □          □   □          □  □                         ");
-            Console.WriteLine("           □□□□□□     □□□□□□    □      □□□             ");
-            Console.WriteLine("           □     □        □              □          □             ");
-            Console.WriteLine("           □       □      □              □          □             ");
-            Console.WriteLine("           □         □    □                □□□□□               ");
+            switch (type)
+            {
+                case PaintingUI.Title:
+                    Console.WriteLine();
+                    Console.WriteLine("  □□□□□□□  □□□□□□□    □          □    □□□□□□□   ");
+                    Console.WriteLine("        □        □                  □      □            □         ");
+                    Console.WriteLine("        □        □                    □  □              □         ");
+                    Console.WriteLine("        □        □□□□□□□          □                □         ");
+                    Console.WriteLine("        □        □                    □  □              □         ");
+                    Console.WriteLine("        □        □                  □      □            □         ");
+                    Console.WriteLine("        □        □□□□□□□    □          □          □         ");
+                    Console.WriteLine();
+                    Console.WriteLine("           □□□□□□     □□□□□□     □□□□□□              ");
+                    Console.WriteLine("           □          □   □          □  □                         ");
+                    Console.WriteLine("           □          □   □          □  □                         ");
+                    Console.WriteLine("           □□□□□□     □□□□□□    □      □□□             ");
+                    Console.WriteLine("           □     □        □              □          □             ");
+                    Console.WriteLine("           □       □      □              □          □             ");
+                    Console.WriteLine("           □         □    □                □□□□□               ");
+                    break;
+
+                case PaintingUI.Divider:
+                    Console.WriteLine();
+                    Console.WriteLine("───────────────────────────────────────────────────────────────────────────────────────────────");
+                    Console.WriteLine();
+                    break;
+
+                case PaintingUI.Divider_x2:
+                    Console.WriteLine();
+                    Console.WriteLine("───────────────────────────────────────────────────────────────────────────────────────────────");
+                    Console.WriteLine("───────────────────────────────────────────────────────────────────────────────────────────────");
+                    Console.WriteLine();
+                    break;
+
+
+            }
         }
 
         public void DrawPainting(PaintingVillage type)
@@ -67,10 +94,7 @@ namespace DungeonTextRPG.Manager.VisualText
                     Console.WriteLine("    |    ____     |||||||||  |    ____     |||||||||  |    ____     |||||||||            ");
                     Console.WriteLine("    |   |    |    |||||||||  |   |    |    |||||||||  |   |    |    |||||||||            ");
                     Console.WriteLine("    |___|____|____|||||||||  |___|____|____|||||||||  |___|____|____|||||||||            ");
-                    Console.WriteLine();
-                    Console.WriteLine("-----------------------------------------------------------------------------------------");
-                    Console.WriteLine("-----------------------------------------------------------------------------------------");
-                    Console.WriteLine();
+                    DrawPainting(PaintingUI.Divider_x2);
                     break;
 
                 case PaintingVillage.Shop:
@@ -83,10 +107,7 @@ namespace DungeonTextRPG.Manager.VisualText
                     Console.WriteLine("                                | *  ____  *  |||||||||                         ");
                     Console.WriteLine("                                |  *|    |*   |||||||||                         ");
                     Console.WriteLine("                                |___|____|____|||||||||                         ");
-                    Console.WriteLine();
-                    Console.WriteLine("-----------------------------------------------------------------------------------------");
-                    Console.WriteLine("-----------------------------------------------------------------------------------------");
-                    Console.WriteLine();
+                    DrawPainting(PaintingUI.Divider_x2);
                     break;
 
                 case PaintingVillage.Hotel:
@@ -99,10 +120,7 @@ namespace DungeonTextRPG.Manager.VisualText
                     Console.WriteLine("                                | (o ____ o)  |||||||||                         ");
                     Console.WriteLine("                                | (o|    |o)  |||||||||                         ");
                     Console.WriteLine("                                |___|____|____|||||||||                         ");
-                    Console.WriteLine();
-                    Console.WriteLine("-----------------------------------------------------------------------------------------");
-                    Console.WriteLine("-----------------------------------------------------------------------------------------");
-                    Console.WriteLine();
+                    DrawPainting(PaintingUI.Divider_x2);
                     break;
 
                 case PaintingVillage.Dungeon:
@@ -116,10 +134,7 @@ namespace DungeonTextRPG.Manager.VisualText
                     Console.WriteLine("                              |  |   |          |    |  |                       ");
                     Console.WriteLine("                              |  |   |          |    |  |                       ");
                     Console.WriteLine("                              |__|___|__________|____|__|                       ");
-                    Console.WriteLine();
-                    Console.WriteLine("-----------------------------------------------------------------------------------------");
-                    Console.WriteLine("-----------------------------------------------------------------------------------------");
-                    Console.WriteLine();
+                    DrawPainting(PaintingUI.Divider_x2);
                     break;
 
             }
