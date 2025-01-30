@@ -30,6 +30,8 @@ namespace DungeonTextRPG.Manager.SaveLoad
 
         public void SaveData()
         {
+            if (GameManager.instance.MyPlayer == null) { return; }
+
             // Player 객체를 JSON 문자열로 직렬화
             string json = JsonConvert.SerializeObject(GameManager.instance.MyPlayer, Formatting.Indented);
 
