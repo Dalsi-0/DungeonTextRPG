@@ -52,7 +52,7 @@ namespace DungeonTextRPG.Manager.Game
             VillageMenu();
         }
 
-        void VillageMenu()
+        public void VillageMenu()
         {
             VisualTextManager.instance.DrawPainting(PaintingVillage.Village);
 
