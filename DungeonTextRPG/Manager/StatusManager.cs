@@ -22,5 +22,9 @@ namespace DungeonTextRPG.Manager.Status
         private StatusManager()
         {
         }
+
+
+
+
     }
 }

@@ -25,7 +25,6 @@ namespace DungeonTextRPG.Manager.SaveLoad
 
         private SaveLoadManager()
         {
-            Console.WriteLine("저장 매니저 생성");
         }
 
 
@@ -52,7 +51,7 @@ namespace DungeonTextRPG.Manager.SaveLoad
                 Console.WriteLine("저장 파일이 존재합니다.");
                 ApplyLoadedData(filePath);
 
-                Console.WriteLine("게임을 시작하려면 아무 키나 누르세요...");
+                Console.WriteLine("계속하려면 아무 키나 누르세요...");
                 Console.ReadKey(); // 콘솔 종료 방지
 
                 Console.Clear();

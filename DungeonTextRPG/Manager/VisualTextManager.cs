@@ -31,6 +31,26 @@ namespace DungeonTextRPG.Manager.VisualText
         {
         }
 
+        public void DrawPainting()
+        {
+            Console.WriteLine();
+            Console.WriteLine("  □□□□□□□  □□□□□□□    □          □    □□□□□□□   ");
+            Console.WriteLine("        □        □                  □      □            □         ");
+            Console.WriteLine("        □        □                    □  □              □         ");
+            Console.WriteLine("        □        □□□□□□□          □                □         ");
+            Console.WriteLine("        □        □                    □  □              □         ");
+            Console.WriteLine("        □        □                  □      □            □         ");
+            Console.WriteLine("        □        □□□□□□□    □          □          □         ");
+            Console.WriteLine();
+            Console.WriteLine("           □□□□□□     □□□□□□     □□□□□□              ");
+            Console.WriteLine("           □          □   □          □  □                         ");
+            Console.WriteLine("           □          □   □          □  □                         ");
+            Console.WriteLine("           □□□□□□     □□□□□□    □      □□□             ");
+            Console.WriteLine("           □     □        □              □          □             ");
+            Console.WriteLine("           □       □      □              □          □             ");
+            Console.WriteLine("           □         □    □                □□□□□               ");
+        }
+
         public void DrawPainting(PaintingVillage type)
         {
             Console.Clear();

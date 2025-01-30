@@ -23,7 +23,6 @@ namespace DungeonTextRPG.Manager.Game
 
         private GameManager()
         {
-            Console.WriteLine("게임 매니저 생성");
         }
 
 
@@ -34,7 +33,12 @@ namespace DungeonTextRPG.Manager.Game
         {
             if (SaveLoadManager.instance.LoadData())
             {
-                Console.WriteLine("데이터 잇!");
+                VisualTextManager.instance.DrawPainting();
+                Console.WriteLine("----------------------------------------------------");
+                Console.WriteLine("던전 텍스트 RPG에 오신 여러분 환영합니다.");
+                Console.WriteLine("게임을 시작하려면 아무 키나 누르세요...");
+                Console.WriteLine("----------------------------------------------------");
+                Console.WriteLine();
                 Console.ReadKey(); // 콘솔 종료 방지
 
             }
