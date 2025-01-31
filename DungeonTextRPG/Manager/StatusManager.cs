@@ -1,5 +1,6 @@
 ﻿using DungeonTextRPG.Manager.Game;
 using DungeonTextRPG.Manager.Inventory;
+using DungeonTextRPG.Manager.Shop;
 using DungeonTextRPG.Manager.VisualText;
 
 namespace DungeonTextRPG.Manager.Status
@@ -8,17 +9,7 @@ namespace DungeonTextRPG.Manager.Status
     {
         private static StatusManager _instance;
 
-        public static StatusManager instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new StatusManager();
-                }
-                return _instance;
-            }
-        }
+        public static StatusManager instance => _instance ??= new StatusManager();
 
         private StatusManager()
         {

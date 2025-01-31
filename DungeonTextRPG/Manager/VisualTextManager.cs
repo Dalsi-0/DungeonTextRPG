@@ -1,4 +1,5 @@
 ﻿using DungeonTextRPG.Manager.Game;
+using DungeonTextRPG.Manager.Status;
 using System;
 public enum PaintingVillage
 {
@@ -22,17 +23,7 @@ namespace DungeonTextRPG.Manager.VisualText
     {
         private static VisualTextManager _instance;
 
-        public static VisualTextManager instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new VisualTextManager();
-                }
-                return _instance;
-            }
-        }
+        public static VisualTextManager instance => _instance ??= new VisualTextManager();
 
         private VisualTextManager()
         {

@@ -1,4 +1,5 @@
 ﻿using DungeonTextRPG.Manager.CreatePlayerAccount;
+using DungeonTextRPG.Manager.Dungeon;
 using DungeonTextRPG.Manager.Inventory;
 using DungeonTextRPG.Manager.SaveLoad;
 using DungeonTextRPG.Manager.Shop;
@@ -12,17 +13,7 @@ namespace DungeonTextRPG.Manager.Game
 	{
 		private static GameManager _instance;
 
-        public static GameManager instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new GameManager();
-                }
-                return _instance;
-            }
-        }
+        public static GameManager instance => _instance ??= new GameManager();
 
         private GameManager()
         {

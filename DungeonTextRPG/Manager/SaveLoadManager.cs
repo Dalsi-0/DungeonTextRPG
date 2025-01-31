@@ -9,17 +9,7 @@ namespace DungeonTextRPG.Manager.SaveLoad
     {
         private static SaveLoadManager _instance;
 
-        public static SaveLoadManager instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new SaveLoadManager();
-                }
-                return _instance;
-            }
-        }
+        public static SaveLoadManager instance => _instance ??= new SaveLoadManager();
 
         private SaveLoadManager()
         {

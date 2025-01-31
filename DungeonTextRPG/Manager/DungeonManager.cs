@@ -1,4 +1,5 @@
-﻿using DungeonTextRPG.Manager.Status;
+﻿using DungeonTextRPG.Manager.CreatePlayerAccount;
+using DungeonTextRPG.Manager.Status;
 using System;
 
 namespace DungeonTextRPG.Manager.Dungeon
@@ -7,17 +8,7 @@ namespace DungeonTextRPG.Manager.Dungeon
     {
         private static DungeonManager _instance;
 
-        public static DungeonManager instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new DungeonManager();
-                }
-                return _instance;
-            }
-        }
+        public static DungeonManager instance => _instance ??= new DungeonManager();
 
         private DungeonManager()
         {

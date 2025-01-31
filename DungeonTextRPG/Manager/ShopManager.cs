@@ -1,4 +1,5 @@
 ﻿using DungeonTextRPG.Manager.Game;
+using DungeonTextRPG.Manager.Inventory;
 using DungeonTextRPG.Manager.Status;
 using DungeonTextRPG.Manager.VisualText;
 using System;
@@ -9,17 +10,7 @@ namespace DungeonTextRPG.Manager.Shop
     {
         private static ShopManager _instance;
 
-        public static ShopManager instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new ShopManager();
-                }
-                return _instance;
-            }
-        }
+        public static ShopManager instance => _instance ??= new ShopManager();
 
         private ShopManager()
         {
@@ -28,6 +19,7 @@ namespace DungeonTextRPG.Manager.Shop
 
         int ShopPage = 1; // 현재 페이지
 
+        #region 상점 뷰어
         public void DisplayShop(bool isDenied)
         {
             VisualTextManager.instance.DrawPainting(PaintingVillage.Shop);
@@ -36,6 +28,8 @@ namespace DungeonTextRPG.Manager.Shop
             DrawShopItem();
 
             VisualTextManager.instance.DrawPainting(PaintingUI.Divider_x2);
+
+
             if (!isDenied)
             {
                 Console.WriteLine(" 그 행동은 할 수 없습니다.");
@@ -48,6 +42,9 @@ namespace DungeonTextRPG.Manager.Shop
             {
                 case 1:
                 case 2:
+                    BuyOrSellEquipment(resultValue);
+                    break;
+
                 case 3: // 이전 페이지
                     DisplayShop(ChangePage(false));
                     break;
@@ -111,11 +108,11 @@ namespace DungeonTextRPG.Manager.Shop
 
                     if (tmp.IsSoldOut)
                     {
-                        Console.WriteLine($"      {i + minIndex + 1} - [매진] [{tmp.Name}] {powerType}: {tmp.PowerValue,-2} | {equipType} | {tmp.Description}");
+                        Console.WriteLine($"      {i + minIndex + 1} - [매진] [{tmp.Name}] {powerType}: {tmp.PowerValue,-2} | {equipType} | {tmp.Description} | {tmp.Price} G");
                     }
                     else
                     {
-                        Console.WriteLine($"      {i + minIndex + 1} - [{tmp.Name}] {powerType}: {tmp.PowerValue,-2} | {equipType} | {tmp.Description}");
+                        Console.WriteLine($"      {i + minIndex + 1} - [{tmp.Name}] {powerType}: {tmp.PowerValue,-2} | {equipType} | {tmp.Description} | {tmp.Price} G");
                     }
                 }
                 else
@@ -124,9 +121,6 @@ namespace DungeonTextRPG.Manager.Shop
                 }
             }
         }
-
-
-
 
         bool ChangePage(bool nextPage) // 인벤토리 페이지 넘김
         {
@@ -153,9 +147,26 @@ namespace DungeonTextRPG.Manager.Shop
 
             return false;
         }
+        #endregion
 
+        #region 장비 구매/판매
 
+        void BuyOrSellEquipment(int itemNumber)
+        {
 
+        }
+
+        void BuyEquipment()
+        {
+
+        }
+
+        void SellEquipment()
+        {
+
+        }
+
+        #endregion
 
 
 

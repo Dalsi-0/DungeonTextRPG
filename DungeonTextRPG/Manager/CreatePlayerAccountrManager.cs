@@ -1,6 +1,7 @@
 ﻿
 using DungeonTextRPG.Manager.Game;
 using DungeonTextRPG.Manager.Inventory;
+using DungeonTextRPG.Manager.Shop;
 using DungeonTextRPG.Manager.VisualText;
 using System;
 using System.ComponentModel;
@@ -12,17 +13,7 @@ namespace DungeonTextRPG.Manager.CreatePlayerAccount
     {
         private static CreatePlayerAccountrManager _instance;
 
-        public static CreatePlayerAccountrManager instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new CreatePlayerAccountrManager();
-                }
-                return _instance;
-            }
-        }
+        public static CreatePlayerAccountrManager instance => _instance ??= new CreatePlayerAccountrManager();
 
         private CreatePlayerAccountrManager()
         {
