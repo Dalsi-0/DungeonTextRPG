@@ -1,8 +1,6 @@
 ﻿using DungeonTextRPG.Manager.Game;
 using DungeonTextRPG.Manager.Status;
 using DungeonTextRPG.Manager.VisualText;
-using System.Collections.Generic;
-using System.Data;
 
 namespace DungeonTextRPG.Manager.Inventory
 {
@@ -10,21 +8,9 @@ namespace DungeonTextRPG.Manager.Inventory
     {
         private static InventoryManager _instance;
 
-        public static InventoryManager instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new InventoryManager();
-                }
-                return _instance;
-            }
-        }
+        public static InventoryManager instance => _instance ??= new InventoryManager();
 
-        private InventoryManager()
-        {
-        }
+        private InventoryManager() { }
 
         // 장착칸
         public Dictionary<string, EquipmentItem> SlotStatus = new Dictionary<string, EquipmentItem>
@@ -37,165 +23,95 @@ namespace DungeonTextRPG.Manager.Inventory
 
         // 현재 인벤토리
         public List<EquipmentItem> MyInventory = new List<EquipmentItem>();
-
-        int MyInventoryPage = 1; // 현재 페이지
-
-        
+        private int MyInventoryPage = 1; // 현재 페이지
 
         #region 인벤토리 뷰어
-        public void DisplayPlayerInventory(bool myInventoryChanged, bool isDenied, bool onSale) // 인벤토리 그리기 및 행동 결정
+        public void DisplayPlayerInventory(bool inventoryChanged, bool isDenied, bool equipment) // 인벤토리 그리기 및 행동 결정
         {
-            if (!myInventoryChanged)
-            {
-                MyInventoryPage = 1;
-            }
-
+            if (!inventoryChanged) MyInventoryPage = 1;
             Console.Clear();
-
             DrawInventoryItem();
             VisualTextManager.instance.DrawPainting(PaintingUI.Divider_x2);
 
-            if (onSale)
+            if (equipment)
             {
-                Console.WriteLine(" 장착/해제할 아이템의 번호를 입력하세요.");
-
+                Console.WriteLine(" 장착/해제할 아이템 번호를 입력하세요.");
                 int resultValue = GameManager.instance.PromptUserAction("1번 장비/2번 장비/3번 장비/4번 장비/5번 장비/나가기");
-
-                switch (resultValue)
-                {
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                    case 5:
-                        EquipOrUnequipItem(resultValue);
-                        DisplayPlayerInventory(true, true, true);
-                        break;
-
-                    case 6: // 나가기
-                        DisplayPlayerInventory(true, true, false);
-                        break;
-                }
+                HandleEquipmentSelection(resultValue);
             }
             else
             {
-                if (!isDenied)
-                {
-                    Console.WriteLine(" 그 행동은 할 수 없습니다.");
-                }
+                if (!isDenied) Console.WriteLine(" 그 행동은 할 수 없습니다.");
                 Console.WriteLine(" 현재 보유한 아이템을 확인하고 장착/해제할 수 있습니다.");
-
                 int resultValue = GameManager.instance.PromptUserAction("장착,해제하기/이전 페이지/다음 페이지/나가기");
-
-                switch (resultValue)
-                {
-                    case 1: // 장착 또는 해제하기
-                        DisplayPlayerInventory(true, true, true);
-                        break;
-
-                    case 2: // 이전 페이지
-                        DisplayPlayerInventory(true, ChangePage(false), false);
-                        break;
-
-                    case 3: // 다음 페이지
-                        DisplayPlayerInventory(true, ChangePage(true), false);
-                        break;
-
-                    case 4: // 나가기
-                        GameManager.instance.VillageMenu();
-                        break;
-
-                }
+                HandleInventorySelection(resultValue);
             }
         }
 
-        void DrawInventoryItem()// 인벤토리 그리기
+        private void HandleEquipmentSelection(int resultValue)
+        {
+            if (resultValue >= 1 && resultValue <= 5)
+            {
+                EquipOrUnequipItem(resultValue);
+                DisplayPlayerInventory(true, true, true);
+            }
+            else if (resultValue == 6) // 나가기
+            {
+                DisplayPlayerInventory(true, true, false);
+            }
+        }
+        private void HandleInventorySelection(int resultValue)
+        {
+            switch (resultValue)
+            {
+                case 1: DisplayPlayerInventory(true, true, true); break;  // 장착 또는 해제하기
+                case 2: DisplayPlayerInventory(true, ChangePage(false), false); break; // 이전 페이지
+                case 3: DisplayPlayerInventory(true, ChangePage(true), false); break; // 다음 페이지
+                case 4: GameManager.instance.VillageMenu(); break; // 나가기
+            }
+        }
+
+        private void DrawInventoryItem() // 인벤토리 그리기
         {
             int minIndex = (5 * MyInventoryPage) - 5;
-
             int maxPage = (int)Math.Ceiling(MyInventory.Count / 5f);
-
-            // 한 페이지에 출력되는 아이템 칸 갯수
-            int InfoSpaceCount = MyInventory.Count - minIndex;
-
             Console.WriteLine();
-            Console.WriteLine("    ┌──────────────────────────────────────────────────────────────────────────────────┐");
-            Console.WriteLine("    │                                     [인벤토리]                                   │");
-            Console.WriteLine($"    │                                    골드: {GameManager.instance.MyPlayer.GoldAmount,+5} G                                 │");
-            Console.WriteLine("    ├──────────────────────────────────────────────────────────────────────────────────┤");
+            Console.WriteLine("    ┌───────────────────────────────────────────────────────────────────┐");
+            Console.WriteLine("    │                             [인벤토리]                            │");
+            Console.WriteLine($"    │                           골드: {GameManager.instance.MyPlayer.GoldAmount,5} G                  │");
+            Console.WriteLine("    ├───────────────────────────────────────────────────────────────────┤");
+            DisplayCurrentPage(minIndex);
+            Console.WriteLine($"    ├───────────────────────────────────────────────────────────────────┤");
+            Console.WriteLine($"    │                           [{MyInventoryPage}/{maxPage}] 페이지                           │");
+            Console.WriteLine("    └───────────────────────────────────────────────────────────────────┘");
+        }
 
-            DisplayCurrentPage(InfoSpaceCount, minIndex);
-
-            Console.WriteLine($"    ├──────────────────────────────────────────────────────────────────────────────────┤");
-            Console.WriteLine($"    │                                    [{MyInventoryPage}/{maxPage}] 페이지                                  │");
-            Console.WriteLine("    └──────────────────────────────────────────────────────────────────────────────────┘");
-        } 
-
-        void DisplayCurrentPage(int InfoSpaceCount, int minIndex) // 인벤토리 그리기(현재 페이지의 아이템 정보)
+        private void DisplayCurrentPage(int minIndex) // 현재 페이지의 아이템 정보
         {
-            int maxIndex = 5 * MyInventoryPage;
-            string powerType;
-            string equipType;
-
-            for (int i = 0; i < 5; i++)
+            int maxIndex = Math.Min(minIndex + 5, MyInventory.Count);
+            for (int i = minIndex; i < minIndex + 5; i++)
             {
-                if (i < InfoSpaceCount)
+                if (i < maxIndex)
                 {
-                    EquipmentData tmp = MyInventory[i + minIndex].GetEquipmentData();
-                    equipType = MyInventory[i + minIndex].GetTypeToString();
-
-                    if (tmp.Type == EquipmentType.Armor || tmp.Type == EquipmentType.Legs || tmp.Type == EquipmentType.Shield)
-                    {
-                        powerType = "방어력";
-                    }
-                    else
-                    {
-                        powerType = "공격력";
-                    }
-
-                    if (tmp.isEquiped)
-                    {
-                        Console.WriteLine($"      {i + minIndex + 1} - [E] [{tmp.Name}] {powerType}: {tmp.PowerValue,-2} | {equipType} |{tmp.Description}");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"      {i + minIndex + 1} - [{tmp.Name}] {powerType}: {tmp.PowerValue,-2} | {equipType} |{tmp.Description}");
-                    }
+                    EquipmentData item = MyInventory[i].GetEquipmentData();
+                    string equipStatus = item.isEquiped ? "[E] " : "";
+                    string powerType = item.Type is EquipmentType.Armor or EquipmentType.Legs or EquipmentType.Shield ? "방어력" : "공격력";
+                    Console.WriteLine($"      {i + 1} - {equipStatus}[{item.Name}] {powerType}: {item.PowerValue,-2} | {MyInventory[i].GetTypeToString()} | {item.Description}");
                 }
                 else
                 {
-                    Console.WriteLine($"      x - [ ] ...              ");
+                    Console.WriteLine("      x - [ ] ...");
                 }
             }
         }
 
-
-        bool ChangePage(bool nextPage) // 인벤토리 페이지 넘김
+        private bool ChangePage(bool nextPage) // 인벤토리 페이지 넘김
         {
             int maxPage = (int)Math.Ceiling(MyInventory.Count / 5f);
-
-            if (nextPage)
-            {
-                // 다음 페이지로 넘어갈 수 있으면
-                if (MyInventoryPage < maxPage)
-                {
-                    MyInventoryPage++;
-                    return true;
-                }
-            }
-            else
-            {
-                // 이전 페이지로 넘어갈 수 있으면
-                if (MyInventoryPage > 1)
-                {
-                    MyInventoryPage--;
-                    return true;
-                }
-            }
-
+            if (nextPage && MyInventoryPage < maxPage) { MyInventoryPage++; return true; }
+            if (!nextPage && MyInventoryPage > 1) { MyInventoryPage--; return true; }
             return false;
         }
-
         #endregion
 
 
@@ -215,7 +131,6 @@ namespace DungeonTextRPG.Manager.Inventory
 
         void EquipOrUnequipItem(int itemNumber)
         {
-
             // 현재 페이지에서 선택한 번호에 해당하는 아이템 가져오기
             int minIndex = (5 * MyInventoryPage) - 5;
 
@@ -225,21 +140,18 @@ namespace DungeonTextRPG.Manager.Inventory
                 return;
             }
 
-            EquipmentItem itemToToggle = MyInventory[itemNumber - 1 + minIndex];
+            EquipmentItem item = MyInventory[itemNumber - 1 + minIndex];
 
             // 아이템 상태가 장착 상태인지 확인하고, 반대로 설정 (장착 -> 해제, 해제 -> 장착)
-            bool isEquipped = itemToToggle.GetEquipmentData().isEquiped;
-            itemToToggle.SetEquippedState(!isEquipped);
-            EquipmentData itemData = itemToToggle.GetEquipmentData();
+            item.SetEquippedState(!item.GetEquipmentData().isEquiped);
 
-            // 장착 또는 해제 처리
-            if (itemData.isEquiped)
+            if (item.GetEquipmentData().isEquiped)
             {
-                EquipItemToSlot(itemToToggle, itemData.Type);
+                EquipItemToSlot(item, item.GetEquipmentData().Type);
             }
             else
             {
-                UnequipItemFromSlot(itemToToggle, itemData.Type);
+                UnequipItemFromSlot(item, item.GetEquipmentData().Type);
             }
 
             // 인벤토리 새로고침
@@ -254,23 +166,13 @@ namespace DungeonTextRPG.Manager.Inventory
                 case EquipmentType.One_HandedWeapon:
                 case EquipmentType.Shield:
                     // OneHandedWeapon 또는 Shield를 장착하는 처리
-                    if (SlotStatus["righthand"] == null)
-                    {
-                        SlotStatus["righthand"] = item;
-                    }
-                    else if (SlotStatus["lefthand"] == null)
-                    {
-                        SlotStatus["lefthand"] = item;
-                    }
-                    else
-                    {
-                        SlotStatus["righthand"] = item;
-                    }
+                    if (SlotStatus["righthand"] == null) SlotStatus["righthand"] = item;
+                    else if (SlotStatus["lefthand"] == null) SlotStatus["lefthand"] = item;
+                    else SlotStatus["righthand"] = item;
                     break;
 
                 case EquipmentType.Two_HandedWeapon:
-                    SlotStatus["righthand"] = item;
-                    SlotStatus["lefthand"] = item;
+                    SlotStatus["righthand"] = SlotStatus["lefthand"] = item;
                     break;
 
                 case EquipmentType.Armor:
@@ -292,19 +194,12 @@ namespace DungeonTextRPG.Manager.Inventory
             {
                 case EquipmentType.One_HandedWeapon:
                 case EquipmentType.Shield:
-                    if (SlotStatus["righthand"] == item)
-                    {
-                        SlotStatus["righthand"] = null;
-                    }
-                    if (SlotStatus["lefthand"] == item)
-                    {
-                        SlotStatus["lefthand"] = null;
-                    }
+                    if (SlotStatus["righthand"] == item) SlotStatus["righthand"] = null;
+                    if (SlotStatus["lefthand"] == item) SlotStatus["lefthand"] = null;
                     break;
 
                 case EquipmentType.Two_HandedWeapon:
-                    SlotStatus["righthand"] = null;
-                    SlotStatus["lefthand"] = null;
+                    SlotStatus["righthand"] = SlotStatus["lefthand"] = null;
                     break;
 
                 case EquipmentType.Armor:
@@ -319,7 +214,6 @@ namespace DungeonTextRPG.Manager.Inventory
             StatusManager.instance.UpdateStats();
         }
         #endregion
-
 
     }
 }
