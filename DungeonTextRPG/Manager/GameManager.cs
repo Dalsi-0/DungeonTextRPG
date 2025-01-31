@@ -1,4 +1,5 @@
 ﻿using DungeonTextRPG.Manager.CreatePlayerAccount;
+using DungeonTextRPG.Manager.Inventory;
 using DungeonTextRPG.Manager.SaveLoad;
 using DungeonTextRPG.Manager.Status;
 using DungeonTextRPG.Manager.VisualText;
@@ -63,20 +64,21 @@ namespace DungeonTextRPG.Manager.Game
 
             switch (resultValue)
             {
-                case 1:
+                case 1: // 상태보기
                     StatusManager.instance.DisplayPlayerStatus();
                     break;
 
-                case 2:
+                case 2: // 인벤토리
+                    InventoryManager.instance.DisplayPlayerInventory(false);
                     break;
 
-                case 3:
+                case 3: // 상점
                     break;
 
-                case 4:
+                case 4: // 던전 입장
                     break;
 
-                case 5:
+                case 5: // 휴식하기
                     RestMenu();
                     break;
             }

@@ -7,6 +7,8 @@ public enum Job
     Knight,     // 기사
     Mercenary   // 용병
 }
+
+
 public class Player
 {
     // 레벨 / 이름 / 직업 / 공격력 / 방어력 / 체력 / Gold

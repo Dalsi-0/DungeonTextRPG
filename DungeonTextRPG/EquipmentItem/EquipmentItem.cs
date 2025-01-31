@@ -26,4 +26,9 @@ public abstract class EquipmentItem
 
     public abstract void InitSetting();
 
+    public EquipmentData GetEquipmentData()
+    {
+        return _Data;
+    }
+
 }

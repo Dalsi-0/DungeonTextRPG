@@ -1,9 +1,6 @@
-﻿using System;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using DungeonTextRPG.Manager.Game;
+﻿using DungeonTextRPG.Manager.Game;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace DungeonTextRPG.Manager.SaveLoad
 {
