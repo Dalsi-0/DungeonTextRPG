@@ -15,9 +15,7 @@ namespace DungeonTextRPG.Manager.Game
 
         public static GameManager instance => _instance ??= new GameManager();
 
-        private GameManager()
-        {
-        }
+        private GameManager() { }
 
 
         public Player MyPlayer;
@@ -78,9 +76,6 @@ namespace DungeonTextRPG.Manager.Game
                     break;
             }
         }
-
-
-
 
         void RestMenu() // 휴식하기
         {

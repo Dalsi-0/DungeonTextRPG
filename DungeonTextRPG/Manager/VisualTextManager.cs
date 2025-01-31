@@ -25,9 +25,7 @@ namespace DungeonTextRPG.Manager.VisualText
 
         public static VisualTextManager instance => _instance ??= new VisualTextManager();
 
-        private VisualTextManager()
-        {
-        }
+        private VisualTextManager() { }
 
         public void DrawPainting(PaintingUI type)
         {

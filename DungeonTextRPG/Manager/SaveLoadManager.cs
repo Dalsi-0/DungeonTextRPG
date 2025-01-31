@@ -11,9 +11,7 @@ namespace DungeonTextRPG.Manager.SaveLoad
 
         public static SaveLoadManager instance => _instance ??= new SaveLoadManager();
 
-        private SaveLoadManager()
-        {
-        }
+        private SaveLoadManager() { }
 
         // 파일 경로 지정
         string filePath_Player = "saveData_Player.json";

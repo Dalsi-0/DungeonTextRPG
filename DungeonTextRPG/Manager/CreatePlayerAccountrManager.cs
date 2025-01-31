@@ -1,32 +1,25 @@
 ﻿
 using DungeonTextRPG.Manager.Game;
 using DungeonTextRPG.Manager.Inventory;
-using DungeonTextRPG.Manager.Shop;
 using DungeonTextRPG.Manager.VisualText;
-using System;
-using System.ComponentModel;
-using System.Numerics;
-using System.Xml.Linq;
 namespace DungeonTextRPG.Manager.CreatePlayerAccount
 {
     public class CreatePlayerAccountrManager
     {
         private static CreatePlayerAccountrManager _instance;
-
         public static CreatePlayerAccountrManager instance => _instance ??= new CreatePlayerAccountrManager();
-
         private CreatePlayerAccountrManager()
         {
         }
 
 
-        
         public Player SetPlayerAccount() // 최초 플레이어 계정 생성
         {
             // 이름 설정
             string name;
             while (true)
             {
+                VisualTextManager.instance.DrawPainting(PaintingUI.Title);
                 VisualTextManager.instance.DrawPainting(PaintingUI.Divider);
                 Console.WriteLine(" 던전 텍스트 RPG에 오신 여러분 환영합니다.");
                 Console.WriteLine(" 플레이어의 이름을 입력해주세요.");
@@ -42,10 +35,8 @@ namespace DungeonTextRPG.Manager.CreatePlayerAccount
                     Console.WriteLine($" 입력하신 이름은 {name}입니다.");
                     Console.WriteLine(" 정말로 사용하시겠습니까?");
 
-                    int resultValue = GameManager.instance.PromptUserAction("저장/취소");
-
+                    if (GameManager.instance.PromptUserAction("저장/취소") == 1) break;
                     Console.Clear();
-                    if (resultValue == 1) { break; }
                 }
                 else
                 {
@@ -54,52 +45,52 @@ namespace DungeonTextRPG.Manager.CreatePlayerAccount
                 }
             }
 
-            // 직업 설정
-            Job playerJob = Job.None;
+            Job playerJob = SelectPlayerJob(name);
+            Player player = new Player(1, name, playerJob, 10, 5, 100, 1500);
+            InventoryManager.instance.SetupInitialEquipment();
+            return player;
+        }
+
+        private Job SelectPlayerJob(string name)
+        {
             while (true)
             {
+                Console.Clear();
+                VisualTextManager.instance.DrawPainting(PaintingUI.Title);
                 VisualTextManager.instance.DrawPainting(PaintingUI.Divider);
                 Console.WriteLine($" 플레이어 [{name}]의 직업을 설정합니다.");
-
-                int resultValue_1 = GameManager.instance.PromptUserAction("전사/기사/용병");
-
+                int choice = GameManager.instance.PromptUserAction("전사/기사/용병");
                 Console.WriteLine();
                 VisualTextManager.instance.DrawPainting(PaintingUI.Divider);
 
                 string selectedJob = "";
+                Job job = Job.None;
 
-                switch (resultValue_1)
+                switch (choice)
                 {
-                    case 1:
-                        selectedJob = "전사";
-                        playerJob = Job.Warrior;
+                    case 1: 
+                        selectedJob = "전사"; 
+                        job = Job.Warrior; 
                         break;
-                    case 2:
+                    case 2: 
                         selectedJob = "기사";
-                        playerJob = Job.Knight;
+                        job = Job.Knight;
                         break;
-                    case 3:
-                        selectedJob = "용병";
-                        playerJob = Job.Mercenary;
+                    case 3: 
+                        selectedJob = "용병"; 
+                        job = Job.Mercenary; 
                         break;
                 }
 
                 Console.WriteLine($" 선택하신 직업은 {selectedJob}입니다.");
                 Console.WriteLine(" 정말로 사용하시겠습니까?");
-
-                int resultValue_2 = GameManager.instance.PromptUserAction("저장/취소");
-
-                Console.Clear();
-                if (resultValue_2 == 1) { break; }
+                if (GameManager.instance.PromptUserAction("저장/취소") == 1)
+                {
+                    Console.Clear();
+                    return job;
+                }
             }
-
-            Player player = new Player(1, name, playerJob, 10, 5, 100, 1500);
-
-            InventoryManager.instance.SetupInitialEquipment();
-
-            return player;
         }
-
 
 
 
