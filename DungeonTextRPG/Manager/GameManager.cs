@@ -69,7 +69,7 @@ namespace DungeonTextRPG.Manager.Game
                     break;
 
                 case 2: // 인벤토리
-                    InventoryManager.instance.DisplayPlayerInventory(false);
+                    InventoryManager.instance.DisplayPlayerInventory(false, true);
                     break;
 
                 case 3: // 상점

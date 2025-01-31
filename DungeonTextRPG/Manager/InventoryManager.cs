@@ -48,17 +48,25 @@ namespace DungeonTextRPG.Manager.Inventory
         }
 
 
-        public void DisplayPlayerInventory(bool myInventoryChanged)
+        public void DisplayPlayerInventory(bool myInventoryChanged, bool canChangePage)
         {
             if (!myInventoryChanged)
             {
                 MyInventoryPage = 1;
             }
 
-            Console.Clear();
+            if (canChangePage)
+            {
+                Console.Clear();
+            }
+
             DrawInventoryItem();
             VisualTextManager.instance.DrawPainting(PaintingUI.Divider_x2);
 
+            if (!canChangePage)
+            {
+                Console.WriteLine("페이지가 없습니다!");
+            }
             Console.WriteLine("현재 보유한 아이템을 확인하고 장착/해제할 수 있습니다.");
 
             int resultValue = GameManager.instance.PromptUserAction("장착하기/이전 페이지/다음 페이지/나가기");
@@ -70,13 +78,11 @@ namespace DungeonTextRPG.Manager.Inventory
                     break;
 
                 case 2: // 이전 페이지
-                    MyInventoryPage--;
-                    DisplayPlayerInventory(true);
+                    DisplayPlayerInventory(true, ChangePage(false));
                     break;
 
                 case 3: // 다음 페이지
-                    MyInventoryPage++;
-                    DisplayPlayerInventory(true);
+                    DisplayPlayerInventory(true, ChangePage(true));
                     break;
 
                 case 4: // 나가기
@@ -138,7 +144,31 @@ namespace DungeonTextRPG.Manager.Inventory
         }
 
 
+        bool ChangePage(bool nextPage)
+        {
+            int maxPage = (int)Math.Ceiling(MyInventory.Count / 5f);
 
+            if (nextPage)
+            {
+                // 다음 페이지로 넘어갈 수 있으면
+                if (MyInventoryPage < maxPage)
+                {
+                    MyInventoryPage++;
+                    return true;
+                }
+            }
+            else
+            {
+                // 이전 페이지로 넘어갈 수 있으면
+                if (MyInventoryPage > 1)
+                {
+                    MyInventoryPage--;
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
 
 
