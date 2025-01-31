@@ -11,36 +11,33 @@ namespace DungeonTextRPG.Manager.Status
 
         public static StatusManager instance => _instance ??= new StatusManager();
 
-        private StatusManager()
-        {
-        }
+        private StatusManager() { }
 
         public float sumAttackPower;
         public float sumDefensePower;
 
         public void DisplayPlayerStatus()
         {
+            var player = GameManager.instance.MyPlayer;
             Console.Clear();
             Console.WriteLine();
             Console.WriteLine( "    ┌────────────────────────────────┐");
             Console.WriteLine( "    │         [플레이어 상태]        │");
             Console.WriteLine( "    ├────────────────────────────────┤");
-            Console.WriteLine($"    │  이름  : [  {GameManager.instance.MyPlayer.Name.PadRight(15)}  ] │");
-            Console.WriteLine($"    │  직업  : [  {GameManager.instance.MyPlayer.PlayerJob.ToString().PadRight(15)}  ] │");
-            Console.WriteLine($"    │  레벨  : [  Lv. {GameManager.instance.MyPlayer.Level.ToString().PadRight(11)}  ] │");
+            Console.WriteLine($"    │  이름  : [  {player.Name.PadRight(15)}  ] │");
+            Console.WriteLine($"    │  직업  : [  {player.PlayerJob.ToString().PadRight(15)}  ] │");
+            Console.WriteLine($"    │  레벨  : [  Lv. {player.Level.ToString().PadRight(11)}  ] │");
             Console.WriteLine( "    ├────────────────────────────────┤");
-            Console.WriteLine($"    │  체력  : [  {GameManager.instance.MyPlayer.Health.ToString().PadRight(8)} / 100   ] │");
-            Console.WriteLine($"    │  공격력: [  {(GameManager.instance.MyPlayer.StatAttack + sumAttackPower).ToString().PadRight(8)} +({sumAttackPower.ToString().PadLeft(3)})  ] │");
-            Console.WriteLine($"    │  방어력: [  {(GameManager.instance.MyPlayer.StatDefense + sumDefensePower).ToString().PadRight(8)} +({sumDefensePower.ToString().PadLeft(3)})  ] │");
-            Console.WriteLine($"    │  골드  : [  {GameManager.instance.MyPlayer.GoldAmount.ToString().PadRight(14)}G  ] │");
+            Console.WriteLine($"    │  체력  : [  {player.Health.ToString().PadRight(8)} / 100   ] │");
+            Console.WriteLine($"    │  공격력: [  {(player.StatAttack + sumAttackPower).ToString().PadRight(8)} +({sumAttackPower.ToString().PadLeft(3)})  ] │");
+            Console.WriteLine($"    │  방어력: [  {(player.StatDefense + sumDefensePower).ToString().PadRight(8)} +({sumDefensePower.ToString().PadLeft(3)})  ] │");
+            Console.WriteLine($"    │  골드  : [  {player.GoldAmount.ToString().PadRight(14)}G  ] │");
             Console.WriteLine( "    └────────────────────────────────┘");
             VisualTextManager.instance.DrawPainting(PaintingUI.Divider_x2);
 
-            Console.WriteLine($" {GameManager.instance.MyPlayer.Name} : 어서 던전에 들어가서 돈이나 벌자...");
+            Console.WriteLine($" {player.Name} : 어서 던전에 들어가서 돈이나 벌자...");
 
-            int resultValue = GameManager.instance.PromptUserAction("나가기");
-
-            if (resultValue == 1)
+            if (GameManager.instance.PromptUserAction("나가기") == 1)
             {
                 GameManager.instance.VillageMenu();
             }
@@ -66,16 +63,9 @@ namespace DungeonTextRPG.Manager.Status
             }
 
             EquipmentData tmp = InventoryManager.instance.SlotStatus[slot].GetEquipmentData();
-
             // 능력치를 추가하는 함수 호출
-            if (IsAttackItem(tmp))
-            {
-                AddAttackPower(tmp);
-            }
-            else
-            {
-                AddDefensePower(tmp);
-            }
+            if (IsAttackItem(tmp)) AddAttackPower(tmp);
+            else AddDefensePower(tmp);
         }
 
         bool IsAttackItem(EquipmentData _data) // true: 공격력 아이템, false: 방어력 아이템
@@ -98,14 +88,7 @@ namespace DungeonTextRPG.Manager.Status
 
         void AddAttackPower(EquipmentData item)
         {
-            if (item.Type == EquipmentType.Two_HandedWeapon)
-            {
-                sumAttackPower += item.PowerValue / 2f; // 두 손 무기는 반값으로 처리
-            }
-            else
-            {
-                sumAttackPower += item.PowerValue;
-            }
+            sumAttackPower += item.Type == EquipmentType.Two_HandedWeapon ? item.PowerValue / 2f : sumAttackPower += item.PowerValue;
         }
 
         void AddDefensePower(EquipmentData item)
