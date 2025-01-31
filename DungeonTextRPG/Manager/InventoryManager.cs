@@ -43,30 +43,21 @@ namespace DungeonTextRPG.Manager.Inventory
         
 
         #region 인벤토리 뷰어
-        public void DisplayPlayerInventory(bool myInventoryChanged, bool canChangePage, bool onSale) // 인벤토리 그리기 및 행동 결정
+        public void DisplayPlayerInventory(bool myInventoryChanged, bool isDenied, bool onSale) // 인벤토리 그리기 및 행동 결정
         {
             if (!myInventoryChanged)
             {
                 MyInventoryPage = 1;
             }
 
-            if (canChangePage)
-            {
-                Console.Clear();
-            }
+            Console.Clear();
 
             DrawInventoryItem();
             VisualTextManager.instance.DrawPainting(PaintingUI.Divider_x2);
 
-            if (!canChangePage)
-            {
-                Console.WriteLine("페이지가 없습니다!");
-            }
-
-
             if (onSale)
             {
-                Console.WriteLine("장착/해제할 아이템의 번호를 입력하세요.");
+                Console.WriteLine(" 장착/해제할 아이템의 번호를 입력하세요.");
 
                 int resultValue = GameManager.instance.PromptUserAction("1번 장비/2번 장비/3번 장비/4번 장비/5번 장비/나가기");
 
@@ -88,7 +79,11 @@ namespace DungeonTextRPG.Manager.Inventory
             }
             else
             {
-                Console.WriteLine("현재 보유한 아이템을 확인하고 장착/해제할 수 있습니다.");
+                if (!isDenied)
+                {
+                    Console.WriteLine(" 그 행동은 할 수 없습니다.");
+                }
+                Console.WriteLine(" 현재 보유한 아이템을 확인하고 장착/해제할 수 있습니다.");
 
                 int resultValue = GameManager.instance.PromptUserAction("장착,해제하기/이전 페이지/다음 페이지/나가기");
 
@@ -218,8 +213,16 @@ namespace DungeonTextRPG.Manager.Inventory
 
         void EquipOrUnequipItem(int itemNumber)
         {
+
             // 현재 페이지에서 선택한 번호에 해당하는 아이템 가져오기
             int minIndex = (5 * MyInventoryPage) - 5;
+
+            if (MyInventory.Count <= itemNumber - 1 + minIndex) // 장비가 없는 칸 선택시
+            {
+                DisplayPlayerInventory(true, false, true);
+                return;
+            }
+
             EquipmentItem itemToToggle = MyInventory[itemNumber - 1 + minIndex];
 
             // 아이템 상태가 장착 상태인지 확인하고, 반대로 설정 (장착 -> 해제, 해제 -> 장착)

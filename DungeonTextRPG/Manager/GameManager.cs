@@ -1,6 +1,7 @@
 ﻿using DungeonTextRPG.Manager.CreatePlayerAccount;
 using DungeonTextRPG.Manager.Inventory;
 using DungeonTextRPG.Manager.SaveLoad;
+using DungeonTextRPG.Manager.Shop;
 using DungeonTextRPG.Manager.Status;
 using DungeonTextRPG.Manager.VisualText;
 using System;
@@ -74,7 +75,7 @@ namespace DungeonTextRPG.Manager.Game
                     break;
 
                 case 3: // 상점
-                    VillageMenu();
+                    ShopManager.instance.DisplayShop();
                     break;
 
                 case 4: // 던전 입장
