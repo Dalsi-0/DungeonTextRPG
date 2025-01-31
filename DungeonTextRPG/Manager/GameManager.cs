@@ -75,7 +75,7 @@ namespace DungeonTextRPG.Manager.Game
                     break;
 
                 case 3: // 상점
-                    ShopManager.instance.DisplayShop();
+                    ShopManager.instance.DisplayShop(true);
                     break;
 
                 case 4: // 던전 입장

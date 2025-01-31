@@ -109,7 +109,7 @@ namespace DungeonTextRPG.Manager.Inventory
             }
         }
 
-        void DrawInventoryItem()
+        void DrawInventoryItem()// 인벤토리 그리기
         {
             int minIndex = (5 * MyInventoryPage) - 5;
 
@@ -129,7 +129,7 @@ namespace DungeonTextRPG.Manager.Inventory
             Console.WriteLine($"    ├──────────────────────────────────────────────────────────────────────────────────┤");
             Console.WriteLine($"    │                                    [{MyInventoryPage}/{maxPage}] 페이지                                  │");
             Console.WriteLine("    └──────────────────────────────────────────────────────────────────────────────────┘");
-        } // 인벤토리 그리기
+        } 
 
         void DisplayCurrentPage(int InfoSpaceCount, int minIndex) // 인벤토리 그리기(현재 페이지의 아이템 정보)
         {
