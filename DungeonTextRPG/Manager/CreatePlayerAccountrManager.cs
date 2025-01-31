@@ -1,5 +1,6 @@
 ﻿
 using DungeonTextRPG.Manager.Game;
+using DungeonTextRPG.Manager.Inventory;
 using DungeonTextRPG.Manager.VisualText;
 using System;
 using System.ComponentModel;
@@ -102,6 +103,8 @@ namespace DungeonTextRPG.Manager.CreatePlayerAccount
             }
 
             Player player = new Player(1, name, playerJob, 10, 5, 100, 1500);
+
+            InventoryManager.instance.SetupInitialEquipment();
 
             return player;
         }
