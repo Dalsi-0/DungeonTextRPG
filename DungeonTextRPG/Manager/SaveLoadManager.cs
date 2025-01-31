@@ -1,4 +1,5 @@
 ﻿using DungeonTextRPG.Manager.Game;
+using DungeonTextRPG.Manager.Inventory;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -24,31 +25,53 @@ namespace DungeonTextRPG.Manager.SaveLoad
         {
         }
 
+        // 파일 경로 지정
+        string filePath_Player = "saveData_Player.json";
+        string filePath_Inventory = "saveData_Inventory.json";
 
         public void SaveData()
         {
             if (GameManager.instance.MyPlayer == null) { return; }
 
-            // Player 객체를 JSON 문자열로 직렬화
-            string json = JsonConvert.SerializeObject(GameManager.instance.MyPlayer, Formatting.Indented);
 
-            // 파일 경로 지정
-            string filePath = "saveData.json";
+            /// player 저장
+            // Player 객체를 JSON 문자열로 직렬화
+            string json_Player = JsonConvert.SerializeObject(GameManager.instance.MyPlayer, Formatting.Indented);
 
             // JSON 데이터를 파일에 저장
-            File.WriteAllText(filePath, json, Encoding.UTF8);
+            File.WriteAllText(filePath_Player, json_Player, Encoding.UTF8);
+
+
+
+            /// 인벤토리 저장
+            // 인벤토리 정보를 JSON 문자열로 직렬화 (타입 정보 포함)
+
+            // JSON 직렬화 (TypeNameHandling 사용)
+            var settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            };
+
+            string json = JsonConvert.SerializeObject(InventoryManager.instance.MyInventory, settings);
+            Console.WriteLine("Serialized JSON:\n" + json);
+
+            string json_Inventory = JsonConvert.SerializeObject(InventoryManager.instance.MyInventory, Formatting.Indented);
+            // JSON 데이터를 파일에 저장
+            File.WriteAllText(filePath_Inventory, json, Encoding.UTF8);
+
+
+
 
             Console.WriteLine("게임 데이터를 저장했습니다.");
         }
 
         public bool LoadData() // 저장파일 로드
         {
-            string filePath = "saveData.json";
 
-            if (File.Exists(filePath))
+            if (File.Exists(filePath_Player))
             {
                 Console.WriteLine("저장 파일이 존재합니다.");
-                ApplyLoadedData(filePath);
+                ApplyLoadedData();
 
                 Console.WriteLine("계속하려면 아무 키나 누르세요...");
                 Console.ReadKey(); // 콘솔 종료 방지
@@ -70,11 +93,21 @@ namespace DungeonTextRPG.Manager.SaveLoad
             }
         }
 
-        void ApplyLoadedData(string filePath)
+        void ApplyLoadedData()
         {
-            // JSON 데이터를 Player 객체로 변환
-            string jsonData = File.ReadAllText(filePath);
-            GameManager.instance.MyPlayer = JsonConvert.DeserializeObject<Player>(jsonData);
+            /// player
+            string jsonData_Player = File.ReadAllText(filePath_Player);
+            GameManager.instance.MyPlayer = JsonConvert.DeserializeObject<Player>(jsonData_Player);
+
+            
+            /// inventory
+            string jsonData_Inventory = File.ReadAllText(filePath_Inventory);
+            // 역직렬화 시 TypeNameHandling.Auto를 사용하여 타입 정보도 처리
+            var settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            };
+            InventoryManager.instance.MyInventory = JsonConvert.DeserializeObject<List<EquipmentItem>>(jsonData_Inventory, settings);
         }
     }
 }

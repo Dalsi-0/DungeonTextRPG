@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 public struct EquipmentData
 {
@@ -22,6 +23,7 @@ public enum EquipmentType
 
 public abstract class EquipmentItem
 {
+    [JsonProperty] // JsonProperty 속성으로 직렬화 가능
     protected EquipmentData _Data;
 
     public abstract void InitSetting();
