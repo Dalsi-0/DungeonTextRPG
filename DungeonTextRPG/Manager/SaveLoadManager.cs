@@ -28,6 +28,7 @@ namespace DungeonTextRPG.Manager.SaveLoad
         // 파일 경로 지정
         string filePath_Player = "saveData_Player.json";
         string filePath_Inventory = "saveData_Inventory.json";
+        string filePath_Equip = "saveData_Equip.json";
 
         public void SaveData()
         {
@@ -35,31 +36,25 @@ namespace DungeonTextRPG.Manager.SaveLoad
 
 
             /// player 저장
-            // Player 객체를 JSON 문자열로 직렬화
             string json_Player = JsonConvert.SerializeObject(GameManager.instance.MyPlayer, Formatting.Indented);
-
-            // JSON 데이터를 파일에 저장
             File.WriteAllText(filePath_Player, json_Player, Encoding.UTF8);
 
 
 
             /// 인벤토리 저장
-            // 인벤토리 정보를 JSON 문자열로 직렬화 (타입 정보 포함)
-
-            // JSON 직렬화 (TypeNameHandling 사용)
             var settings = new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.Auto
             };
 
-            string json = JsonConvert.SerializeObject(InventoryManager.instance.MyInventory, settings);
-            Console.WriteLine("Serialized JSON:\n" + json);
-
-            string json_Inventory = JsonConvert.SerializeObject(InventoryManager.instance.MyInventory, Formatting.Indented);
-            // JSON 데이터를 파일에 저장
-            File.WriteAllText(filePath_Inventory, json, Encoding.UTF8);
+            string json_Inventory = JsonConvert.SerializeObject(InventoryManager.instance.MyInventory, settings);
+            File.WriteAllText(filePath_Inventory, json_Inventory, Encoding.UTF8);
 
 
+
+            /// 장착아이템 저장
+            string json_Equip = JsonConvert.SerializeObject(InventoryManager.instance.SlotStatus, settings);
+            File.WriteAllText(filePath_Equip, json_Equip, Encoding.UTF8);
 
 
             Console.WriteLine("게임 데이터를 저장했습니다.");
@@ -88,7 +83,7 @@ namespace DungeonTextRPG.Manager.SaveLoad
                 Console.ReadKey(); // 콘솔 종료 방지
 
                 Console.Clear();
-
+                
                 return false;
             }
         }
@@ -108,6 +103,11 @@ namespace DungeonTextRPG.Manager.SaveLoad
                 TypeNameHandling = TypeNameHandling.Auto
             };
             InventoryManager.instance.MyInventory = JsonConvert.DeserializeObject<List<EquipmentItem>>(jsonData_Inventory, settings);
+
+
+            /// Equip
+            string jsonData_Equip = File.ReadAllText(filePath_Equip);
+            InventoryManager.instance.SlotStatus = JsonConvert.DeserializeObject<Dictionary<string, EquipmentItem>>(jsonData_Equip, settings);
         }
     }
 }

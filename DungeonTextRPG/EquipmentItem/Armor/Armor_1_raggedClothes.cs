@@ -2,8 +2,6 @@
 
 public class Armor_1_raggedClothes : EquipmentItem
 {
-
-
     public override void InitSetting()
     {
         _Data.Name = "누더기 옷";
@@ -12,5 +10,6 @@ public class Armor_1_raggedClothes : EquipmentItem
         _Data.Description = "수차례 수선된 낡고 찢어진 옷";
         _Data.Price = 10;
         _Data.IsSoldOut = false;
+        _Data.isEquiped = false;
     }
 }

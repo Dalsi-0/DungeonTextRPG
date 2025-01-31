@@ -50,6 +50,7 @@ namespace DungeonTextRPG.Manager.Game
             }
 
 
+            StatusManager.instance.UpdateStats();
             VillageMenu();
         }
 
@@ -69,13 +70,15 @@ namespace DungeonTextRPG.Manager.Game
                     break;
 
                 case 2: // 인벤토리
-                    InventoryManager.instance.DisplayPlayerInventory(false, true);
+                    InventoryManager.instance.DisplayPlayerInventory(false, true, false);
                     break;
 
                 case 3: // 상점
+                    VillageMenu();
                     break;
 
                 case 4: // 던전 입장
+                    VillageMenu();
                     break;
 
                 case 5: // 휴식하기
