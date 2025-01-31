@@ -14,6 +14,7 @@ public enum EquipmentType
     None,
     One_HandedWeapon, // 한손 무기
     Two_HandedWeapon, // 양손 무기
+    Shield, // 방패
     Armor, // 갑옷
     Legs, // 하의
 }
