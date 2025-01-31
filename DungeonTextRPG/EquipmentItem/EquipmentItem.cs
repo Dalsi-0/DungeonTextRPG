@@ -44,6 +44,34 @@ public abstract class EquipmentItem
         _Data.isEquiped = isEquipped;
     }
 
+    public string GetTypeToString()
+    {
+        string type = "";
+
+        switch (_Data.Type)
+        {
+            case EquipmentType.One_HandedWeapon:
+            case EquipmentType.Shield:
+                type = "한손 장비";
+                break;
+
+            case EquipmentType.Two_HandedWeapon:
+                type = "두손 장비";
+                break;
+
+            case EquipmentType.Armor:
+                type = "갑옷";
+                break;
+
+            case EquipmentType.Legs:
+                type = "하의";
+                break;
+        }
+
+
+        return type;
+    }
+
 
     public EquipmentItem CopyItem()
     {

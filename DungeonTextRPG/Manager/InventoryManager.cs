@@ -119,28 +119,30 @@ namespace DungeonTextRPG.Manager.Inventory
             int InfoSpaceCount = MyInventory.Count - minIndex;
 
             Console.WriteLine();
-             Console.WriteLine("    ┌────────────────────────────────────────────────────────────────────────┐");
-             Console.WriteLine("    │                                [인벤토리]                              │");
-            Console.WriteLine($"    │                               골드: {GameManager.instance.MyPlayer.GoldAmount, +5} G                            │");
-             Console.WriteLine("    ├────────────────────────────────────────────────────────────────────────┤");
+            Console.WriteLine("    ┌──────────────────────────────────────────────────────────────────────────────────┐");
+            Console.WriteLine("    │                                     [인벤토리]                                   │");
+            Console.WriteLine($"    │                                    골드: {GameManager.instance.MyPlayer.GoldAmount,+5} G                                 │");
+            Console.WriteLine("    ├──────────────────────────────────────────────────────────────────────────────────┤");
 
             DisplayCurrentPage(InfoSpaceCount, minIndex);
 
-            Console.WriteLine($"    ├────────────────────────────────────────────────────────────────────────┤");
-            Console.WriteLine($"    │                               [{MyInventoryPage}/{maxPage}] 페이지                             │");
-             Console.WriteLine("    └────────────────────────────────────────────────────────────────────────┘");
+            Console.WriteLine($"    ├──────────────────────────────────────────────────────────────────────────────────┤");
+            Console.WriteLine($"    │                                    [{MyInventoryPage}/{maxPage}] 페이지                                  │");
+            Console.WriteLine("    └──────────────────────────────────────────────────────────────────────────────────┘");
         } // 인벤토리 그리기
 
         void DisplayCurrentPage(int InfoSpaceCount, int minIndex) // 인벤토리 그리기(현재 페이지의 아이템 정보)
         {
             int maxIndex = 5 * MyInventoryPage;
             string powerType;
+            string equipType;
 
             for (int i = 0; i < 5; i++)
             {
                 if (i < InfoSpaceCount)
                 {
                     EquipmentData tmp = MyInventory[i + minIndex].GetEquipmentData();
+                    equipType = MyInventory[i + minIndex].GetTypeToString();
 
                     if (tmp.Type == EquipmentType.Armor || tmp.Type == EquipmentType.Legs || tmp.Type == EquipmentType.Shield)
                     {
@@ -153,11 +155,11 @@ namespace DungeonTextRPG.Manager.Inventory
 
                     if (tmp.isEquiped)
                     {
-                        Console.WriteLine($"      {i + minIndex + 1} - [E] [{tmp.Name}] {powerType}: {tmp.PowerValue,-2} | {tmp.Description}");
+                        Console.WriteLine($"      {i + minIndex + 1} - [E] [{tmp.Name}] {powerType}: {tmp.PowerValue,-2} | {equipType} |{tmp.Description}");
                     }
                     else
                     {
-                        Console.WriteLine($"      {i + minIndex + 1} - [{tmp.Name}] {powerType}: {tmp.PowerValue,-2} | {tmp.Description}");
+                        Console.WriteLine($"      {i + minIndex + 1} - [{tmp.Name}] {powerType}: {tmp.PowerValue,-2} | {equipType} |{tmp.Description}");
                     }
                 }
                 else
