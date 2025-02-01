@@ -135,7 +135,7 @@ namespace DungeonTextRPG.Manager.Shop
             var itemList = ItemDatabase.instance.Items.ToList();
             // 현재 페이지에서 선택한 번호에 해당하는 아이템 가져오기
             int minIndex = (5 * ShopPage) - 5;
-            if (ItemDatabase.instance.Items.Count <= itemNumber - 1 + minIndex) { DisplayShop(" 잘못된 입력입니다. 다시 시도해주세요.", true, false); return; } // 장비가 없는 칸 선택시
+            if (ItemDatabase.instance.Items.Count <= itemNumber - 1 + minIndex) { DisplayShop(" 잘못된 입력입니다. 다시 시도해주세요.", true, true); return; } // 장비가 없는 칸 선택시
             
             EquipmentItem item = itemList[itemNumber - 1 + minIndex].Value;
             EquipmentData itemData = item.GetEquipmentData();
