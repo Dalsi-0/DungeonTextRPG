@@ -133,7 +133,7 @@ namespace DungeonTextRPG.Manager.Game
                 // 입력이 실패했을 경우 (int 값이 아니었을 경우)
                 else
                 {
-                    Console.WriteLine("유효한 숫자가 아닙니다. 다시 시도해주세요.");
+                    Console.WriteLine("잘못된 입력입니다. 다시 시도해주세요.");
                 }
             }
 

@@ -41,7 +41,7 @@ namespace DungeonTextRPG.Manager.Inventory
             }
             else
             {
-                if (!isDenied) Console.WriteLine(" 그 행동은 할 수 없습니다.");
+                if (!isDenied) Console.WriteLine(" 잘못된 입력입니다. 다시 시도해주세요.");
                 Console.WriteLine(" 현재 보유한 아이템을 확인하고 장착/해제할 수 있습니다.");
                 int resultValue = GameManager.instance.PromptUserAction("장착,해제하기/이전 페이지/다음 페이지/나가기");
                 HandleInventorySelection(resultValue);
