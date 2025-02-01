@@ -4,6 +4,7 @@ public class OneHandedWeapon_3_longSword : EquipmentItem
 {
     public override void InitSetting()
     {
+        _Data.Code = this.GetType().Name;
         _Data.Name = "롱소드";
         _Data.Type = EquipmentType.One_HandedWeapon;
         _Data.PowerValue = 6;

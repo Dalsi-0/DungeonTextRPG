@@ -4,6 +4,7 @@ public class TwoHandedWeapon_2_battleSpear : EquipmentItem
 {
     public override void InitSetting()
     {
+        _Data.Code = this.GetType().Name;
         _Data.Name = "전투용 창";
         _Data.Type = EquipmentType.Two_HandedWeapon;
         _Data.PowerValue = 7;

@@ -5,6 +5,7 @@ public class Legs_1_leatherBoots : EquipmentItem
 
     public override void InitSetting()
     {
+        _Data.Code = this.GetType().Name;
         _Data.Name = "가죽 신발";
         _Data.Type = EquipmentType.Legs;
         _Data.PowerValue = 2;

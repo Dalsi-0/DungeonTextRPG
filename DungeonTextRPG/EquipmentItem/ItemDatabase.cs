@@ -1,25 +1,14 @@
-﻿using DungeonTextRPG.Manager.Inventory;
+﻿using DungeonTextRPG.Manager.Game;
+using DungeonTextRPG.Manager.Inventory;
 using System;
 
 public class ItemDatabase
 {
     private static ItemDatabase _instance;
 
-    public static ItemDatabase instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new ItemDatabase();
-            }
-            return _instance;
-        }
-    }
+    public static ItemDatabase instance => _instance ??= new ItemDatabase();
 
-    private ItemDatabase()
-    {
-    }
+    private ItemDatabase() { }
 
     public Dictionary<string, EquipmentItem> Items = new Dictionary<string, EquipmentItem>
     {
@@ -40,11 +29,8 @@ public class ItemDatabase
 
     public EquipmentItem GetItem(string itemKey)
     {
-        if (Items.ContainsKey(itemKey))
-        {
-            // 원본 데이터를 복사해서 새 아이템 반환
-            return Items[itemKey].CopyItem();
-        }
+        // 원본 데이터를 복사해서 새 아이템 반환
+        if (Items.ContainsKey(itemKey)) { return Items[itemKey].CopyItem(); }
         return null;
     }
 }

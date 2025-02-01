@@ -4,6 +4,7 @@ public class Legs_2_combatBoots : EquipmentItem
 {
     public override void InitSetting()
     {
+        _Data.Code = this.GetType().Name;
         _Data.Name = "전투 신발";
         _Data.Type = EquipmentType.Legs;
         _Data.PowerValue = 4;

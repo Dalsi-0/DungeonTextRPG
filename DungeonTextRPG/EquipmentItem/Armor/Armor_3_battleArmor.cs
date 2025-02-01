@@ -4,6 +4,7 @@ public class Armor_3_battleArmor : EquipmentItem
 {
     public override void InitSetting()
     {
+        _Data.Code = this.GetType().Name;
         _Data.Name = "전투용 갑옷";
         _Data.Type = EquipmentType.Armor;
         _Data.PowerValue = 8;

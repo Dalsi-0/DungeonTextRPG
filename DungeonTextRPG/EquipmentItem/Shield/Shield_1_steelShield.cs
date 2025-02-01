@@ -4,6 +4,7 @@ public class Shield_1_steelShield : EquipmentItem
 {
     public override void InitSetting()
     {
+        _Data.Code = this.GetType().Name;
         _Data.Name = "강철 방패";
         _Data.Type = EquipmentType.Shield;
         _Data.PowerValue = 2;

@@ -4,6 +4,7 @@ public class Armor_4_KnightArmor : EquipmentItem
 {
     public override void InitSetting()
     {
+        _Data.Code = this.GetType().Name;
         _Data.Name = "기사 갑옷";
         _Data.Type = EquipmentType.Armor;
         _Data.PowerValue = 10;

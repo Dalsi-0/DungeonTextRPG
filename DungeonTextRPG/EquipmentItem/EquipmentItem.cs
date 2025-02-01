@@ -3,6 +3,7 @@ using System;
 
 public struct EquipmentData
 {
+    public string Code;
     public string Name;
     public EquipmentType Type;
     public int PowerValue;

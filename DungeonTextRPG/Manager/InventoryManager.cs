@@ -40,7 +40,7 @@ namespace DungeonTextRPG.Manager.Inventory
             if (equipment)
             {
                 Console.WriteLine(" 장착/해제할 아이템 번호를 입력하세요.");
-                HandleEquipmentSelection(GameManager.instance.PromptUserAction("1번 장비/2번 장비/3번 장비/4번 장비/5번 장비/나가기"));
+                HandleEquipmentSelection(GameManager.instance.PromptUserAction("1번 장비/2번 장비/3번 장비/4번 장비/5번 장비/뒤로 가기"));
             }
             else
             {
@@ -119,6 +119,8 @@ namespace DungeonTextRPG.Manager.Inventory
 
             initEquip1.SetEquippedState(true);
             initEquip2.SetEquippedState(true);
+            initEquip1.SetSoldOutState(true);
+            initEquip2.SetSoldOutState(true);
             EquipItemToSlot(initEquip1, initEquip1.GetEquipmentData().Type);
             EquipItemToSlot(initEquip2, initEquip2.GetEquipmentData().Type);
         }

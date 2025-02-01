@@ -4,6 +4,7 @@ public class OneHandedWeapon_1_dagger : EquipmentItem
 {
     public override void InitSetting()
     {
+        _Data.Code = this.GetType().Name;
         _Data.Name = "단검";
         _Data.Type = EquipmentType.One_HandedWeapon;
         _Data.PowerValue = 3;

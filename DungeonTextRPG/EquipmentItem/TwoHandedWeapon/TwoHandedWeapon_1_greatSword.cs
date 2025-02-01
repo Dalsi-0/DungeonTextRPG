@@ -4,6 +4,7 @@ public class TwoHandedWeapon_1_greatSword : EquipmentItem
 {
     public override void InitSetting()
     {
+        _Data.Code = this.GetType().Name;
         _Data.Name = "그레이트소드";
         _Data.Type = EquipmentType.Two_HandedWeapon;
         _Data.PowerValue = 10;

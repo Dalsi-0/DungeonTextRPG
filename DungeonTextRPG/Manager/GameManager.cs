@@ -60,11 +60,11 @@ namespace DungeonTextRPG.Manager.Game
                     break;
 
                 case 2: // 인벤토리
-                    InventoryManager.instance.DisplayPlayerInventory("", true, false);
+                    InventoryManager.instance.DisplayPlayerInventory("", false, false);
                     break;
 
                 case 3: // 상점
-                   // ShopManager.instance.DisplayShop(false);
+                    ShopManager.instance.DisplayShop("", false, false);
                     break;
 
                 case 4: // 던전 입장

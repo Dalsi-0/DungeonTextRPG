@@ -5,6 +5,7 @@ public class Armor_2_leatherArmor : EquipmentItem
 
     public override void InitSetting()
     {
+        _Data.Code = this.GetType().Name;
         _Data.Name = "가죽 갑옷";
         _Data.Type = EquipmentType.Armor;
         _Data.PowerValue = 5;
