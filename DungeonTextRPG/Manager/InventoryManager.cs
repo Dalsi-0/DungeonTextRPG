@@ -143,7 +143,7 @@ namespace DungeonTextRPG.Manager.Inventory
 
             if (MyInventory.Count <= itemNumber - 1 + minIndex) // 장비가 없는 칸 선택시
             {
-                DisplayPlayerInventory(" 잘못된 입력입니다. 다시 시도해주세요.", false, true);
+                DisplayPlayerInventory(" 잘못된 입력입니다. 다시 시도해주세요.", true, true);
                 return;
             }
 
