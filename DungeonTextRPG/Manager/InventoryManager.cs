@@ -172,21 +172,36 @@ namespace DungeonTextRPG.Manager.Inventory
             {
                 case EquipmentType.One_HandedWeapon:
                 case EquipmentType.Shield:
+                    // 양손무기가 있다면 해제
+                    if(SlotStatus["righthand"] != null && SlotStatus["righthand"].GetEquipmentData().Type == EquipmentType.Two_HandedWeapon)
+                    {
+                        if (SlotStatus["righthand"] != null) SlotStatus["righthand"].SetEquippedState(false);
+                        if (SlotStatus["lefthand"] != null) SlotStatus["lefthand"].SetEquippedState(false);
+                        SlotStatus["righthand"] = SlotStatus["lefthand"] = null;
+                    }
                     // OneHandedWeapon 또는 Shield를 장착하는 처리
                     if (SlotStatus["righthand"] == null) SlotStatus["righthand"] = item;
                     else if (SlotStatus["lefthand"] == null) SlotStatus["lefthand"] = item;
-                    else SlotStatus["righthand"] = item;
+                    else
+                    {
+                        if (SlotStatus["righthand"] != null) SlotStatus["righthand"].SetEquippedState(false);
+                        SlotStatus["righthand"] = item;
+                    }                    
                     break;
 
                 case EquipmentType.Two_HandedWeapon:
+                    if (SlotStatus["righthand"] != null) SlotStatus["righthand"].SetEquippedState(false);
+                    if (SlotStatus["lefthand"] != null) SlotStatus["lefthand"].SetEquippedState(false);
                     SlotStatus["righthand"] = SlotStatus["lefthand"] = item;
                     break;
 
                 case EquipmentType.Armor:
+                    if(SlotStatus["armor"] != null) SlotStatus["armor"].SetEquippedState(false);
                     SlotStatus["armor"] = item;
                     break;
 
                 case EquipmentType.Legs:
+                    if (SlotStatus["legs"] != null) SlotStatus["legs"].SetEquippedState(false);
                     SlotStatus["legs"] = item;
                     break;
             }
