@@ -8,7 +8,7 @@ public struct EquipmentData
     public int PowerValue;
     public string Description;
     public int Price;
-    public bool IsSoldOut;
+    public bool isSoldOut;
     public bool isEquiped;
 }
 public enum EquipmentType
@@ -24,30 +24,21 @@ public enum EquipmentType
 
 public abstract class EquipmentItem
 {
-    [JsonProperty] // JsonProperty 속성으로 직렬화 가능
-    protected EquipmentData _Data;
+    [JsonProperty] protected EquipmentData _Data; // JsonProperty 속성으로 직렬화 가능
 
-    public EquipmentItem()
-    {
-        InitSetting();
-    }
+    public EquipmentItem() { InitSetting(); }
 
     public abstract void InitSetting();
 
-    public EquipmentData GetEquipmentData()
-    {
-        return _Data;
-    }
+    public EquipmentData GetEquipmentData() { return _Data; }
 
-    public void SetEquippedState(bool isEquipped)
-    {
-        _Data.isEquiped = isEquipped;
-    }
+    public void SetEquippedState(bool isEquipped) { _Data.isEquiped = isEquipped; }
+
+    public void SetSoldOutState(bool isSoldOut) { _Data.isSoldOut = isSoldOut; }
 
     public string GetTypeToString()
     {
         string type = "";
-
         switch (_Data.Type)
         {
             case EquipmentType.One_HandedWeapon:
@@ -55,23 +46,17 @@ public abstract class EquipmentItem
                 type = "한손 장비";
                 break;
 
-            case EquipmentType.Two_HandedWeapon:
-                type = "두손 장비";
+            case EquipmentType.Two_HandedWeapon: type = "두손 장비";
                 break;
 
-            case EquipmentType.Armor:
-                type = "갑옷";
+            case EquipmentType.Armor: type = "갑옷";
                 break;
 
-            case EquipmentType.Legs:
-                type = "하의";
+            case EquipmentType.Legs: type = "하의";
                 break;
         }
-
-
         return type;
     }
-
 
     public EquipmentItem CopyItem()
     {
@@ -84,10 +69,9 @@ public abstract class EquipmentItem
             PowerValue = _Data.PowerValue,
             Description = _Data.Description,
             Price = _Data.Price,
-            IsSoldOut = _Data.IsSoldOut,
+            isSoldOut = _Data.isSoldOut,
             isEquiped = _Data.isEquiped
         };
-
         return clonedItem;
     }
 
