@@ -9,6 +9,6 @@ public class Armor_3_battleArmor : EquipmentItem
         _Data.PowerValue = 8;
         _Data.Description = "전쟁터에서 사용되던 흠집 많은 갑옷";
         _Data.Price = 300;
-        _Data.IsSoldOut = false;
+        _Data.isSoldOut = false;
     }
 }

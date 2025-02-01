@@ -23,57 +23,51 @@ namespace DungeonTextRPG.Manager.Inventory
 
         // 현재 인벤토리
         public List<EquipmentItem> MyInventory = new List<EquipmentItem>();
-        private int MyInventoryPage = 1; // 현재 페이지
+        private int InventoryPage = 1; // 현재 페이지
 
         #region 인벤토리 뷰어
-        public void DisplayPlayerInventory(bool inventoryChanged, bool isDenied, bool equipment) // 인벤토리 그리기 및 행동 결정
+        public void DisplayPlayerInventory(string message, bool pageChanged, bool equipment) // 인벤토리 그리기 및 행동 결정
         {
-            if (!inventoryChanged) MyInventoryPage = 1;
+            if (!pageChanged) InventoryPage = 1;
             Console.Clear();
             DrawInventoryItem();
             VisualTextManager.instance.DrawPainting(PaintingUI.Divider_x2);
 
+            if (message != "")
+            {
+                Console.WriteLine($" {message}");
+            }
             if (equipment)
             {
                 Console.WriteLine(" 장착/해제할 아이템 번호를 입력하세요.");
-                int resultValue = GameManager.instance.PromptUserAction("1번 장비/2번 장비/3번 장비/4번 장비/5번 장비/나가기");
-                HandleEquipmentSelection(resultValue);
+                HandleEquipmentSelection(GameManager.instance.PromptUserAction("1번 장비/2번 장비/3번 장비/4번 장비/5번 장비/나가기"));
             }
             else
             {
-                if (!isDenied) Console.WriteLine(" 잘못된 입력입니다. 다시 시도해주세요.");
                 Console.WriteLine(" 현재 보유한 아이템을 확인하고 장착/해제할 수 있습니다.");
-                int resultValue = GameManager.instance.PromptUserAction("장착,해제하기/이전 페이지/다음 페이지/나가기");
-                HandleInventorySelection(resultValue);
-            }
-        }
-
-        private void HandleEquipmentSelection(int resultValue)
-        {
-            if (resultValue >= 1 && resultValue <= 5)
-            {
-                EquipOrUnequipItem(resultValue);
-                DisplayPlayerInventory(true, true, true);
-            }
-            else if (resultValue == 6) // 나가기
-            {
-                DisplayPlayerInventory(true, true, false);
+                HandleInventorySelection(GameManager.instance.PromptUserAction("장착,해제하기/이전 페이지/다음 페이지/나가기"));
             }
         }
         private void HandleInventorySelection(int resultValue)
         {
             switch (resultValue)
             {
-                case 1: DisplayPlayerInventory(true, true, true); break;  // 장착 또는 해제하기
-                case 2: DisplayPlayerInventory(true, ChangePage(false), false); break; // 이전 페이지
-                case 3: DisplayPlayerInventory(true, ChangePage(true), false); break; // 다음 페이지
+                case 1: DisplayPlayerInventory("", true, true); break;  // 장착 또는 해제하기
+                case 2: // 이전 페이지
+                    bool canChagePre = ChangePage(false);
+                    DisplayPlayerInventory(canChagePre ? "" : " 페이지가 없습니다.", canChagePre, false);
+                    break;
+                case 3: // 다음 페이지
+                    bool canChageNext = ChangePage(true);
+                    DisplayPlayerInventory(canChageNext ? "" : " 페이지가 없습니다.", canChageNext, false);
+                    break;
                 case 4: GameManager.instance.VillageMenu(); break; // 나가기
             }
         }
 
         private void DrawInventoryItem() // 인벤토리 그리기
         {
-            int minIndex = (5 * MyInventoryPage) - 5;
+            int minIndex = (5 * InventoryPage) - 5;
             int maxPage = (int)Math.Ceiling(MyInventory.Count / 5f);
             Console.WriteLine();
             Console.WriteLine("    ┌───────────────────────────────────────────────────────────────────┐");
@@ -82,7 +76,7 @@ namespace DungeonTextRPG.Manager.Inventory
             Console.WriteLine("    ├───────────────────────────────────────────────────────────────────┤");
             DisplayCurrentPage(minIndex);
             Console.WriteLine($"    ├───────────────────────────────────────────────────────────────────┤");
-            Console.WriteLine($"    │                           [{MyInventoryPage}/{maxPage}] 페이지                           │");
+            Console.WriteLine($"    │                           [{InventoryPage}/{maxPage}] 페이지                           │");
             Console.WriteLine("    └───────────────────────────────────────────────────────────────────┘");
         }
 
@@ -108,8 +102,8 @@ namespace DungeonTextRPG.Manager.Inventory
         private bool ChangePage(bool nextPage) // 인벤토리 페이지 넘김
         {
             int maxPage = (int)Math.Ceiling(MyInventory.Count / 5f);
-            if (nextPage && MyInventoryPage < maxPage) { MyInventoryPage++; return true; }
-            if (!nextPage && MyInventoryPage > 1) { MyInventoryPage--; return true; }
+            if (nextPage && InventoryPage < maxPage) { InventoryPage++; return true; }
+            if (!nextPage && InventoryPage > 1) { InventoryPage--; return true; }
             return false;
         }
         #endregion
@@ -129,14 +123,26 @@ namespace DungeonTextRPG.Manager.Inventory
             EquipItemToSlot(initEquip2, initEquip2.GetEquipmentData().Type);
         }
 
+        private void HandleEquipmentSelection(int resultValue)
+        {
+            if (resultValue >= 1 && resultValue <= 5)
+            {
+                EquipOrUnequipItem(resultValue);
+                DisplayPlayerInventory("", true, true);
+            }
+            else if (resultValue == 6) // 나가기
+            {
+                DisplayPlayerInventory("", true, false);
+            }
+        }
         void EquipOrUnequipItem(int itemNumber)
         {
             // 현재 페이지에서 선택한 번호에 해당하는 아이템 가져오기
-            int minIndex = (5 * MyInventoryPage) - 5;
+            int minIndex = (5 * InventoryPage) - 5;
 
             if (MyInventory.Count <= itemNumber - 1 + minIndex) // 장비가 없는 칸 선택시
             {
-                DisplayPlayerInventory(true, false, true);
+                DisplayPlayerInventory(" 잘못된 입력입니다. 다시 시도해주세요.", false, true);
                 return;
             }
 
@@ -155,7 +161,7 @@ namespace DungeonTextRPG.Manager.Inventory
             }
 
             // 인벤토리 새로고침
-            DisplayPlayerInventory(true, true, true);
+            DisplayPlayerInventory("", true, true);
         }
 
         void EquipItemToSlot(EquipmentItem item, EquipmentType type)

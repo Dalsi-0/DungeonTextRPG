@@ -10,6 +10,6 @@ public class Armor_2_leatherArmor : EquipmentItem
         _Data.PowerValue = 5;
         _Data.Description = "시간이 지나 자연스러운 색을 가진 질긴 가죽 갑옷";
         _Data.Price = 100;
-        _Data.IsSoldOut = false;
+        _Data.isSoldOut = false;
     }
 }

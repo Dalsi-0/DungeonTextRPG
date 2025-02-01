@@ -10,6 +10,6 @@ public class Legs_1_leatherBoots : EquipmentItem
         _Data.PowerValue = 2;
         _Data.Description = "자주 마모되었지만 여전히 편안한 신발";
         _Data.Price = 20;
-        _Data.IsSoldOut = false;
+        _Data.isSoldOut = false;
     }
 }
