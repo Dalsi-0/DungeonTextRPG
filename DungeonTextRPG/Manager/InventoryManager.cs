@@ -39,8 +39,9 @@ namespace DungeonTextRPG.Manager.Inventory
             }
             if (equipment)
             {
+                int minIndex = (5 * InventoryPage) - 5;
                 Console.WriteLine(" 장착/해제할 아이템 번호를 입력하세요.");
-                HandleEquipmentSelection(GameManager.instance.PromptUserAction("1번 장비/2번 장비/3번 장비/4번 장비/5번 장비/뒤로 가기"));
+                HandleEquipmentSelection(GameManager.instance.PromptUserAction($"{minIndex+1}번 장비/{minIndex + 2}번 장비/{minIndex + 3}번 장비/{minIndex + 4}번 장비/{minIndex + 5}번 장비/뒤로 가기"));
             }
             else
             {
@@ -54,12 +55,10 @@ namespace DungeonTextRPG.Manager.Inventory
             {
                 case 1: DisplayPlayerInventory("", true, true); break;  // 장착 또는 해제하기
                 case 2: // 이전 페이지
-                    bool canChagePre = ChangePage(false);
-                    DisplayPlayerInventory(canChagePre ? "" : " 페이지가 없습니다.", canChagePre, false);
+                    DisplayPlayerInventory(ChangePage(false) ? "" : " 페이지가 없습니다.", true, false);
                     break;
                 case 3: // 다음 페이지
-                    bool canChageNext = ChangePage(true);
-                    DisplayPlayerInventory(canChageNext ? "" : " 페이지가 없습니다.", canChageNext, false);
+                    DisplayPlayerInventory(ChangePage(true) ? "" : " 페이지가 없습니다.", true, false);
                     break;
                 case 4: GameManager.instance.VillageMenu(); break; // 나가기
             }

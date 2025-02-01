@@ -35,9 +35,10 @@ namespace DungeonTextRPG.Manager.Shop
             }
             if (buyItem)
             {
+                int minIndex = (5 * ShopPage) - 5;
                 Console.WriteLine(" 구매할 아이템 번호를 입력하세요.");
                 Console.WriteLine(" 상점 주인 : 어떤 장비를 살텐가?");
-                HandleBuySelection(GameManager.instance.PromptUserAction("1번 장비/2번 장비/3번 장비/4번 장비/5번 장비/뒤로 가기"));
+                HandleBuySelection(GameManager.instance.PromptUserAction($"{minIndex + 1}번 장비/{minIndex + 2}번 장비/{minIndex + 3}번 장비/{minIndex + 4}번 장비/{minIndex + 5}번 장비/뒤로 가기"));
             }
             else
             {
@@ -97,14 +98,12 @@ namespace DungeonTextRPG.Manager.Shop
                 case 1: DisplayShop("", true, true); break; // 아이템 구매
                 case 2:  break; // 아이템 판매
                 case 3: // 이전 페이지
-                    bool canChagePre = ChangePage(false);
-                    DisplayShop(canChagePre ? "" : " 페이지가 없습니다.", canChagePre, false);
+                    DisplayShop(ChangePage(false) ? "" : " 페이지가 없습니다.", true, false);
                     break;
                 case 4: // 다음 페이지
-                    bool canChageNext = ChangePage(true);
-                    DisplayShop(canChageNext ? "" : " 페이지가 없습니다.", canChageNext, false);
+                    DisplayShop(ChangePage(true) ? "" : " 페이지가 없습니다.", true, false);
                     break;
-                case 5: GameManager.instance.VillageMenu(); break;// 나가기
+                case 5: GameManager.instance.VillageMenu(); break;// 나가기s
             }
         }
 
