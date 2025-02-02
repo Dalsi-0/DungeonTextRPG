@@ -44,6 +44,7 @@ namespace DungeonTextRPG.Manager.Game
             VillageMenu();
         }
 
+        #region 마을 관련
         public void VillageMenu()
         {
             VisualTextManager.instance.DrawPainting(PaintingVillage.Village);
@@ -105,7 +106,10 @@ namespace DungeonTextRPG.Manager.Game
 
             VillageMenu();
         }
+        #endregion
 
+
+        #region Player 관련
         public void LoseHealth(int value)
         {
             MyPlayer.Health -= value;
@@ -115,7 +119,20 @@ namespace DungeonTextRPG.Manager.Game
         {
             MyPlayer.GoldAmount += value;
         }
-
+        public bool GetEXP()
+        {
+            MyPlayer.DungeonClearEXP++;
+            if (MyPlayer.Level == MyPlayer.DungeonClearEXP) { LevelUP(); return true; }
+            return false;
+        }
+        void LevelUP()
+        {
+            MyPlayer.DungeonClearEXP = 0;
+            MyPlayer.Level++;
+            MyPlayer.StatAttack += 0.5f;
+            MyPlayer.StatDefense++;
+        }
+        #endregion
 
         public int PromptUserAction(string actionMessages) // 행동 번호 입력 함수
         {

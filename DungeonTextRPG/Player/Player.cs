@@ -11,7 +11,7 @@ public enum Job
 
 public class Player
 {
-    // 레벨 / 이름 / 직업 / 공격력 / 방어력 / 체력 / Gold
+    // 레벨 / 이름 / 직업 / 공격력 / 방어력 / 체력 / Gold / 경험치
     public int Level { get; set; }
     public string Name { get; set; }
     public Job PlayerJob { get; set; }
@@ -19,8 +19,9 @@ public class Player
     public float StatDefense { get; set; }
     public float Health { get; set; }
     public int GoldAmount { get; set; }
+    public int DungeonClearEXP { get; set; }
 
-    public Player(int level, string name, Job job, float attack, float defense, float health, int gold)
+    public Player(int level, string name, Job job, float attack, float defense, float health, int gold, int dungeonClearEXP)
     {
         Level = level;
         Name = name;
@@ -29,5 +30,6 @@ public class Player
         StatDefense = defense;
         Health = health;
         GoldAmount = gold;
+        DungeonClearEXP = dungeonClearEXP;
     }
 }

@@ -100,6 +100,7 @@ namespace DungeonTextRPG.Manager.Dungeon
                         break;
                 }
 
+                if (GameManager.instance.GetEXP()) { Console.WriteLine(" !!레벨 업!!"); };
                 GameManager.instance.GainGold(rewardGold);
             }
             DisplayResult(healthLoss, rewardGold);
