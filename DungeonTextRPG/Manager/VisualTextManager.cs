@@ -14,7 +14,9 @@ public enum PaintingUI
     None,
     Title,
     Divider,
-    Divider_x2
+    Divider_x2,
+    DungeonClear,
+    DungeonFail
 }
 
 namespace DungeonTextRPG.Manager.VisualText
@@ -60,6 +62,30 @@ namespace DungeonTextRPG.Manager.VisualText
                     Console.WriteLine();
                     Console.WriteLine("───────────────────────────────────────────────────────────────────────────────────────────────");
                     Console.WriteLine("───────────────────────────────────────────────────────────────────────────────────────────────");
+                    Console.WriteLine();
+                    break;
+
+                case PaintingUI.DungeonClear:
+                    Console.WriteLine();
+                    Console.WriteLine("     □□□□□   □   □□□□□□       □□       □□□□□□    ");
+                    Console.WriteLine("   □             □   □               □    □     □          □  ");
+                    Console.WriteLine("   □             □   □             □        □   □          □  ");
+                    Console.WriteLine("   □             □   □□□□□     □□□□□□   □□□□□□    ");
+                    Console.WriteLine("   □             □   □             □        □   □      □      ");
+                    Console.WriteLine("   □             □   □             □        □   □        □    ");
+                    Console.WriteLine("     □□□□□   □   □□□□□□   □        □   □          □  ");
+                    Console.WriteLine();
+                    break;
+
+                case PaintingUI.DungeonFail:
+                    Console.WriteLine();
+                    Console.WriteLine("   □□□□□□       □□       □□□   □         ");
+                    Console.WriteLine("   □               □    □       □     □         ");
+                    Console.WriteLine("   □             □        □     □     □         ");
+                    Console.WriteLine("   □□□□□     □□□□□□     □     □         ");
+                    Console.WriteLine("   □             □        □     □     □         ");
+                    Console.WriteLine("   □             □        □     □     □         ");
+                    Console.WriteLine("   □             □        □   □□□   □□□□□ ");
                     Console.WriteLine();
                     break;
 

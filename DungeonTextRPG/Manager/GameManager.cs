@@ -68,7 +68,7 @@ namespace DungeonTextRPG.Manager.Game
                     break;
 
                 case 4: // 던전 입장
-                    VillageMenu();
+                    DungeonManager.instance.DisplayDungeon();
                     break;
 
                 case 5: // 휴식하기
@@ -105,6 +105,17 @@ namespace DungeonTextRPG.Manager.Game
 
             VillageMenu();
         }
+
+        public void LoseHealth(int value)
+        {
+            MyPlayer.Health -= value;
+            if (MyPlayer.Health < 0) { MyPlayer.Health = 0; }
+        }
+        public void GainGold(int value)
+        {
+            MyPlayer.GoldAmount += value;
+        }
+
 
         public int PromptUserAction(string actionMessages) // 행동 번호 입력 함수
         {
