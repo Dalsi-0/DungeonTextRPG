@@ -69,7 +69,7 @@ namespace DungeonTextRPG.Manager.Game
                     break;
 
                 case 4: // 던전 입장
-                    DungeonManager.instance.DisplayDungeon();
+                    DungeonManager.instance.DisplayDungeon(MyPlayer.Health <= 0);
                     break;
 
                 case 5: // 휴식하기

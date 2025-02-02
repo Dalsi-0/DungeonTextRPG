@@ -20,17 +20,26 @@ namespace DungeonTextRPG.Manager.Dungeon
         private string[] DungeonName = { "쉬운 던전", "일반 던전", "어려운 던전" };
         private int[] DungeonRecommendedDef = { 5, 11, 17 };
 
-        public void DisplayDungeon()
+        public void DisplayDungeon(bool isHPLow)
         {
             Console.Clear();
             VisualTextManager.instance.DrawPainting(PaintingVillage.Dungeon);
-            VisualTextManager.instance.DrawPainting(PaintingUI.Divider_x2);
 
-            Console.WriteLine($" 현재 방어력 : {GameManager.instance.MyPlayer.StatDefense}");
+            Player player = GameManager.instance.MyPlayer;
+            Console.WriteLine($" 현재 방어력 : {player.StatDefense}");
+            Console.WriteLine($" 현재 체력 : {player.Health} \n");
+
+            if (isHPLow)
+            {
+                Console.WriteLine(" 탐험할 체력이 부족합니다!");
+                if(GameManager.instance.PromptUserAction("나가기") == 1) GameManager.instance.VillageMenu();
+                return;
+            }
+
             Console.WriteLine(" 탐험할 던전을 선택하세요.");
 
             HandleDungeonSelection(GameManager.instance.PromptUserAction(
-                $"{DungeonName[0], -10}| 방어력 {DungeonRecommendedDef[0]} 이상 권장/" +
+                $"{DungeonName[0],-10}| 방어력 {DungeonRecommendedDef[0]} 이상 권장/" +
                 $"{DungeonName[1],-10}| 방어력 {DungeonRecommendedDef[1]} 이상 권장/" +
                 $"{DungeonName[2],-9}| 방어력 {DungeonRecommendedDef[2]} 이상 권장/" +
                 $"나가기"));
@@ -110,8 +119,9 @@ namespace DungeonTextRPG.Manager.Dungeon
         void DisplayResult(int healthLoss, int rewardGold)
         {
             Player player = GameManager.instance.MyPlayer;
+            bool minusHealth = player.Health - healthLoss < 0;
             Console.WriteLine(" [탐험 결과]");
-            Console.WriteLine($" 체력 {player.Health} => {player.Health - healthLoss}");
+            Console.WriteLine($" 체력 {player.Health} => {(minusHealth ? 0 : player.Health - healthLoss)}");
             if (rewardGold > 0) { Console.WriteLine($" Gold : {rewardGold} 획득"); }
         }
 
