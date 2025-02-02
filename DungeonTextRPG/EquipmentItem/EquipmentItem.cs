@@ -65,6 +65,7 @@ public abstract class EquipmentItem
         EquipmentItem clonedItem = (EquipmentItem)MemberwiseClone(); 
         clonedItem._Data = new EquipmentData()
         {
+            Code = _Data.Code,
             Name = _Data.Name,
             Type = _Data.Type,
             PowerValue = _Data.PowerValue,

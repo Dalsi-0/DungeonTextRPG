@@ -48,6 +48,7 @@ namespace DungeonTextRPG.Manager.CreatePlayerAccount
             Job playerJob = SelectPlayerJob(name);
             Player player = new Player(1, name, playerJob, 10, 5, 100, 1500, 0);
             InventoryManager.instance.SetupInitialEquipment();
+
             return player;
         }
 

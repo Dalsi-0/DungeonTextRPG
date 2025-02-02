@@ -1,4 +1,5 @@
 ﻿using DungeonTextRPG.Manager.Game;
+using DungeonTextRPG.Manager.Shop;
 using DungeonTextRPG.Manager.Status;
 using DungeonTextRPG.Manager.VisualText;
 
@@ -118,8 +119,18 @@ namespace DungeonTextRPG.Manager.Inventory
 
             initEquip1.SetEquippedState(true);
             initEquip2.SetEquippedState(true);
-            initEquip1.SetSoldOutState(true);
-            initEquip2.SetSoldOutState(true);
+
+            string itemKey1 = initEquip1.GetEquipmentData().Code;  // 아이템의 고유 키로 매진 상태 설정
+            if (ItemDatabase.instance.Items.ContainsKey(itemKey1))
+            {
+                ItemDatabase.instance.Items[itemKey1].SetSoldOutState(true);
+            }
+            string itemKey2 = initEquip2.GetEquipmentData().Code;
+            if (ItemDatabase.instance.Items.ContainsKey(itemKey2))
+            {
+                ItemDatabase.instance.Items[itemKey2].SetSoldOutState(true);
+            }
+
             EquipItemToSlot(initEquip1, initEquip1.GetEquipmentData().Type);
             EquipItemToSlot(initEquip2, initEquip2.GetEquipmentData().Type);
         }
@@ -237,5 +248,85 @@ namespace DungeonTextRPG.Manager.Inventory
         }
         #endregion
 
+        #region 장비 판매
+        public void DisplayPlayerSellInventory(string message, bool pageChanged, bool sellItem)
+        {
+            if (!pageChanged) InventoryPage = 1;
+            Console.Clear();
+            DrawInventoryItem();
+            VisualTextManager.instance.DrawPainting(PaintingUI.Divider_x2);
+
+            if (message != "") { Console.WriteLine($" {message}"); }
+
+            if (sellItem)
+            {
+                int minIndex = (5 * InventoryPage) - 5;
+                Console.WriteLine(" 판매할 아이템 번호를 입력하세요.");
+                HandleSellSelection(GameManager.instance.PromptUserAction($"{minIndex + 1}번 아이템/{minIndex + 2}번 아이템/{minIndex + 3}번 아이템/{minIndex + 4}번 아이템/{minIndex + 5}번 아이템/뒤로 가기"));
+            }
+            else
+            {
+                Console.WriteLine(" 현재 보유한 아이템을 확인하고 판매할 수 있습니다.");
+                HandleSellInventorySelection(GameManager.instance.PromptUserAction("판매하기/이전 페이지/다음 페이지/뒤로 가기"));
+            }
+
+        }
+        private void HandleSellInventorySelection(int resultValue)
+        {
+            switch (resultValue)
+            {
+                case 1: DisplayPlayerSellInventory("", true, true); break;  // 판매하기
+                case 2: // 이전 페이지
+                    DisplayPlayerSellInventory(ChangePage(false) ? "" : " 페이지가 없습니다.", true, false);
+                    break;
+                case 3: // 다음 페이지
+                    DisplayPlayerSellInventory(ChangePage(true) ? "" : " 페이지가 없습니다.", true, false);
+                    break;
+                case 4: ShopManager.instance.DisplayShop("", false, false); break; // 뒤로 가기
+            }
+        }
+
+        void HandleSellSelection(int resultValue) // 아이템 판매 
+        {
+            if (resultValue >= 1 && resultValue <= 5)
+            {
+                SellItem(resultValue);
+            }
+            else if (resultValue == 6) // 뒤로 가기
+            {
+                ShopManager.instance.DisplayShop("", false, false);
+            }
+        }
+
+        void SellItem(int itemNumber)
+        {
+            int minIndex = (5 * InventoryPage) - 5;
+
+            if (MyInventory.Count <= itemNumber - 1 + minIndex)
+            {
+                DisplayPlayerSellInventory(" 잘못된 입력입니다. 다시 시도해주세요.", true, true);
+                return;
+            }
+
+            EquipmentItem item = MyInventory[itemNumber - 1 + minIndex];
+            EquipmentData itemData = item.GetEquipmentData();
+
+            // 아이템이 장착된 상태면 해제
+            if (itemData.isEquiped) { UnequipItemFromSlot(item, itemData.Type); }
+
+            // 아이템 판매 후 골드 추가
+            GameManager.instance.MyPlayer.GoldAmount += itemData.Price;
+            MyInventory.RemoveAt(itemNumber - 1 + minIndex);
+
+            // 아이템의 키를 통해 ItemDatabase에서 해당 아이템을 찾고 매진 상태 해제
+            string itemKey = itemData.Code;  // 아이템의 고유 키로 매진 상태 해제
+            if (ItemDatabase.instance.Items.ContainsKey(itemKey))
+            {
+                ItemDatabase.instance.Items[itemKey].SetSoldOutState(false);  // 매진 상태 해제
+            }
+
+            DisplayPlayerSellInventory(" 아이템을 판매했습니다.", true, true);
+        }
+        #endregion
     }
 }

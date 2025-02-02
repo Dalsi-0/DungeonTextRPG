@@ -11,5 +11,6 @@ public class TwoHandedWeapon_1_greatSword : EquipmentItem
         _Data.Description = "거대한 칼날이 돋보이는 대검";
         _Data.Price = 400;
         _Data.isSoldOut = false;
+        _Data.isEquiped = false;
     }
 }

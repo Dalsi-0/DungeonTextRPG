@@ -35,7 +35,7 @@ namespace DungeonTextRPG.Manager.Status
             Console.WriteLine( "    └────────────────────────────────┘");
             VisualTextManager.instance.DrawPainting(PaintingUI.Divider_x2);
 
-            Console.WriteLine($" {player.Name} : 어서 던전에 들어가서 돈이나 벌자...");
+            Console.WriteLine($" {player.Name} : 어서 던전에 들어가서 골드나 벌자");
 
             if (GameManager.instance.PromptUserAction("나가기") == 1)
             {

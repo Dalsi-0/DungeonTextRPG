@@ -11,5 +11,6 @@ public class OneHandedWeapon_2_battleAxe : EquipmentItem
         _Data.Description = "강력한 타격을 주는 거친 도끼";
         _Data.Price = 70;
         _Data.isSoldOut = false;
+        _Data.isEquiped = false;
     }
 }

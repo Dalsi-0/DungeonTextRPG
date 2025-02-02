@@ -11,5 +11,6 @@ public class Shield_1_steelShield : EquipmentItem
         _Data.Description = "튼튼하고 반짝이는 강철 방패";
         _Data.Price = 50;
         _Data.isSoldOut = false;
+        _Data.isEquiped = false;
     }
 }
