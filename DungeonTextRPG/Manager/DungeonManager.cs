@@ -1,13 +1,4 @@
-﻿using DungeonTextRPG.Manager.CreatePlayerAccount;
-using DungeonTextRPG.Manager.Game;
-using DungeonTextRPG.Manager.Shop;
-using DungeonTextRPG.Manager.Status;
-using DungeonTextRPG.Manager.VisualText;
-using System;
-using System.Collections.ObjectModel;
-using System.Numerics;
-
-namespace DungeonTextRPG.Manager.Dungeon
+﻿namespace DungeonTextRPG.Manager
 {
     public class DungeonManager
     {

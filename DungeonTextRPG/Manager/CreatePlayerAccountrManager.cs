@@ -1,8 +1,4 @@
-﻿
-using DungeonTextRPG.Manager.Game;
-using DungeonTextRPG.Manager.Inventory;
-using DungeonTextRPG.Manager.VisualText;
-namespace DungeonTextRPG.Manager.CreatePlayerAccount
+﻿namespace DungeonTextRPG.Manager
 {
     public class CreatePlayerAccountrManager
     {

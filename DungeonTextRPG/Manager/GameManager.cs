@@ -1,15 +1,6 @@
-﻿using DungeonTextRPG.Manager.CreatePlayerAccount;
-using DungeonTextRPG.Manager.Dungeon;
-using DungeonTextRPG.Manager.Inventory;
-using DungeonTextRPG.Manager.SaveLoad;
-using DungeonTextRPG.Manager.Shop;
-using DungeonTextRPG.Manager.Status;
-using DungeonTextRPG.Manager.VisualText;
-using System;
-
-namespace DungeonTextRPG.Manager.Game
+﻿namespace DungeonTextRPG.Manager
 {
-	public class GameManager
+    public class GameManager
 	{
 		private static GameManager _instance;
 
@@ -19,7 +10,7 @@ namespace DungeonTextRPG.Manager.Game
 
 
         public Player MyPlayer;
-
+        public string filePath = "data.csv"; // CSV 파일 경로
 
         public void StartGame()
         {

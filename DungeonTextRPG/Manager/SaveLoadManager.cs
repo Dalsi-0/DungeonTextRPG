@@ -1,10 +1,7 @@
-﻿using DungeonTextRPG.Manager.Game;
-using DungeonTextRPG.Manager.Inventory;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Text;
-using System.Text.Json;
 
-namespace DungeonTextRPG.Manager.SaveLoad
+namespace DungeonTextRPG.Manager
 {
     public class SaveLoadManager
     {

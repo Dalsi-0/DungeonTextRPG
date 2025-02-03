@@ -1,7 +1,4 @@
-﻿using DungeonTextRPG.Manager.Game;
-using DungeonTextRPG.Manager.Status;
-using System;
-public enum PaintingVillage
+﻿public enum PaintingVillage
 {
     None,
     Village,
@@ -19,7 +16,7 @@ public enum PaintingUI
     DungeonFail
 }
 
-namespace DungeonTextRPG.Manager.VisualText
+namespace DungeonTextRPG.Manager
 {
     public class VisualTextManager
     {

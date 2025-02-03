@@ -1,9 +1,4 @@
-﻿using DungeonTextRPG.Manager.Game;
-using DungeonTextRPG.Manager.Shop;
-using DungeonTextRPG.Manager.Status;
-using DungeonTextRPG.Manager.VisualText;
-
-namespace DungeonTextRPG.Manager.Inventory
+﻿namespace DungeonTextRPG.Manager
 {
     public class InventoryManager
     {

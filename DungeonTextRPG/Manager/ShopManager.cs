@@ -1,11 +1,4 @@
-﻿using DungeonTextRPG.Manager.Game;
-using DungeonTextRPG.Manager.Inventory;
-using DungeonTextRPG.Manager.Status;
-using DungeonTextRPG.Manager.VisualText;
-using System;
-using System.Net.WebSockets;
-
-namespace DungeonTextRPG.Manager.Shop
+﻿namespace DungeonTextRPG.Manager
 {
     public class ShopManager
     {
