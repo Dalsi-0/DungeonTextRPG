@@ -18,7 +18,7 @@
                 VisualTextManager.instance.DrawPainting(PaintingUI.Title);
                 VisualTextManager.instance.DrawPainting(PaintingUI.Divider);
                 Console.WriteLine(" 던전 텍스트 RPG에 오신 여러분 환영합니다.");
-                Console.WriteLine(" 플레이어의 이름을 입력해주세요.");
+                Console.WriteLine(" 새롭게 모험을 떠날 플레이어의 이름을 입력해주세요.");
                 VisualTextManager.instance.DrawPainting(PaintingUI.Divider);
 
                 Console.Write(" >> ");

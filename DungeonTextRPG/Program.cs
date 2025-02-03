@@ -1,4 +1,5 @@
 ﻿using DungeonTextRPG.Manager;
+using static CsvReader;
 
 namespace DungeonTextRPG
 {
@@ -8,6 +9,8 @@ namespace DungeonTextRPG
         {
             // 프로그램 종료 시 실행할 코드 등록
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
+
+            new TSVLoader();
 
             GameManager.instance.StartGame();
 

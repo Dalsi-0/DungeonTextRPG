@@ -8,8 +8,8 @@
 
         private DungeonManager() { }
 
-        private string[] DungeonName = { "쉬운 던전", "일반 던전", "어려운 던전" };
-        private int[] DungeonRecommendedDef = { 5, 11, 17 };
+        private string[] DungeonName;
+        private int[] DungeonRecommendedDef;
 
         public void DisplayDungeon(bool isHPLow)
         {
@@ -116,5 +116,10 @@
             if (rewardGold > 0) { Console.WriteLine($" Gold : {rewardGold} 획득"); }
         }
 
+        public void SetDungeonInfo(string[] dungeonName, int[] dungeonRecommendedDef)
+        {
+            DungeonName = dungeonName;
+            DungeonRecommendedDef = dungeonRecommendedDef;
+        }
     }
 }

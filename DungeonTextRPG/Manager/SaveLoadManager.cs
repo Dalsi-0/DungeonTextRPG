@@ -52,28 +52,14 @@ namespace DungeonTextRPG.Manager
 
         public bool LoadData() // 저장파일 로드
         {
-
             if (File.Exists(filePath_Player))
             {
-                Console.WriteLine("저장 파일이 존재합니다.");
                 ApplyLoadedData();
-
-                Console.WriteLine("계속하려면 아무 키나 누르세요...");
-                Console.ReadKey(); // 콘솔 종료 방지
-
-                Console.Clear();
 
                 return true;
             }
             else
             {
-                Console.WriteLine("저장 파일이 존재하지 않습니다.");
-
-                Console.WriteLine("게임을 시작하려면 아무 키나 누르세요...");
-                Console.ReadKey(); // 콘솔 종료 방지
-
-                Console.Clear();
-                
                 return false;
             }
         }
@@ -103,6 +89,14 @@ namespace DungeonTextRPG.Manager
             /// Shop
             string jsonData_Shop = File.ReadAllText(filePath_Shop);
             ItemDatabase.instance.Items = JsonConvert.DeserializeObject<Dictionary<string, EquipmentItem>>(jsonData_Shop, settings);
+        }
+
+        public void SetSavefilePath(string[] path)
+        {
+            filePath_Player = path[0];
+            filePath_Inventory = path[1];
+            filePath_Equip = path[2];
+            filePath_Shop = path[3];
         }
     }
 }

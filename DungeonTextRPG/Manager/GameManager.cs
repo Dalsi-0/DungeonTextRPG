@@ -1,4 +1,6 @@
-﻿namespace DungeonTextRPG.Manager
+﻿using static CsvReader;
+
+namespace DungeonTextRPG.Manager
 {
     public class GameManager
 	{
@@ -10,31 +12,60 @@
 
 
         public Player MyPlayer;
-        public string filePath = "data.csv"; // CSV 파일 경로
+        public bool isLoadData = false;
 
         public void StartGame()
         {
+            int LoadingCount = 0;
+            string dot = ".";
+            while (!isLoadData)
+            {
+                Console.Clear();
+                switch (LoadingCount)
+                {
+                    case 0:
+                        dot = ".";
+                        break;
+                    case 1:
+                        dot = "..";
+                        break;
+                    case 2:
+                        dot = "...";
+                        break;
+                    case 3:
+                        dot = "....";
+                        break;
+                    case 4:
+                        dot = ".....";
+                        break;
+                    case 5:
+                        LoadingCount = 0;
+                        break;
+                }
+                LoadingCount++;
+                Console.WriteLine($"Loading{dot}");
+                Thread.Sleep(300);
+            }
+            Console.Clear();
+
             if (SaveLoadManager.instance.LoadData())
             {
                 VisualTextManager.instance.DrawPainting(PaintingUI.Title);
                 Console.WriteLine("────────────────────────────────────────────────────────────────");
                 Console.WriteLine(" 던전 텍스트 RPG에 오신 여러분 환영합니다.");
-                Console.WriteLine(" 게임을 시작하려면 아무 키나 누르세요...");
+                Console.WriteLine(" 데이터 로드 완료! \n 게임을 시작하려면 아무 키나 누르세요...");
                 Console.WriteLine("────────────────────────────────────────────────────────────────");
                 Console.WriteLine();
                 Console.ReadKey(); // 콘솔 종료 방지
-
             }
             else
             {
                 MyPlayer = CreatePlayerAccountrManager.instance.SetPlayerAccount();
             }
 
-
             StatusManager.instance.UpdateStats();
             VillageMenu();
         }
-
         #region 마을 관련
         public void VillageMenu()
         {

@@ -1,4 +1,6 @@
-﻿public class ItemDatabase
+﻿using System.Xml.Linq;
+
+public class ItemDatabase
 {
     private static ItemDatabase _instance;
 
@@ -6,27 +8,33 @@
 
     private ItemDatabase() { }
 
-    public Dictionary<string, EquipmentItem> Items = new Dictionary<string, EquipmentItem>
-    {
-        {"Armor_1_raggedClothes", new Armor_1_raggedClothes() },
-        {"Armor_2_leatherArmor", new Armor_2_leatherArmor() },
-        {"Armor_3_battleArmor", new Armor_3_battleArmor() },
-        {"Armor_4_KnightArmor", new Armor_4_KnightArmor() },
-        {"Legs_1_leatherBoots", new Legs_1_leatherBoots() },
-        {"Legs_2_combatBoots", new Legs_2_combatBoots() },
-        {"Legs_3_steelBoots", new Legs_3_steelBoots() },
-        {"OneHandedWeapon_1_dagger", new OneHandedWeapon_1_dagger() },
-        {"OneHandedWeapon_2_battleAxe", new OneHandedWeapon_2_battleAxe() },
-        {"OneHandedWeapon_3_longSword", new OneHandedWeapon_3_longSword() },
-        {"Shield_1_steelShield", new Shield_1_steelShield() },
-        {"TwoHandedWeapon_1_greatSword", new TwoHandedWeapon_1_greatSword() },
-        {"TwoHandedWeapon_2_battleSpear", new TwoHandedWeapon_2_battleSpear() }
-    };
+    public Dictionary<string, EquipmentItem> Items = new Dictionary<string, EquipmentItem>();
 
     public EquipmentItem GetItem(string itemKey)
     {
         // 원본 데이터를 복사해서 새 아이템 반환
         if (Items.ContainsKey(itemKey)) { return Items[itemKey].CopyItem(); }
         return null;
+    }
+
+    public void EquipmentFactory(EquipmentData _Data)
+    {
+        // 새로운 객체를 생성
+        EquipmentItem clonedItem = new EquipmentItem();
+        // 직접 _Data 필드 값을 설정
+        clonedItem.SetEquipmentData(new EquipmentData()
+        {
+            Code = _Data.Code,
+            Name = _Data.Name,
+            Type = _Data.Type,
+            PowerValue = _Data.PowerValue,
+            Description = _Data.Description,
+            Price = _Data.Price,
+            isSoldOut = false,
+            isEquiped = false
+        });
+
+        // 아이템을 Items 딕셔너리에 추가
+        Items.Add(_Data.Code, clonedItem);
     }
 }

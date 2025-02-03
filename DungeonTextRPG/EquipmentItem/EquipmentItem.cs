@@ -23,20 +23,18 @@ public enum EquipmentType
 }
 
 
-public abstract class EquipmentItem
+public class EquipmentItem
 {
     [JsonProperty] protected EquipmentData _Data; // JsonProperty 속성으로 직렬화 가능
 
-    public EquipmentItem() { InitSetting(); }
-
-    public abstract void InitSetting();
+    public EquipmentItem() { }
 
     public EquipmentData GetEquipmentData() { return _Data; }
 
     public void SetEquippedState(bool isEquipped) { _Data.isEquiped = isEquipped; }
 
     public void SetSoldOutState(bool isSoldOut) { _Data.isSoldOut = isSoldOut; }
-
+    public void SetEquipmentData(EquipmentData data) {  _Data = data; }
     public string GetTypeToString()
     {
         string type = "";
