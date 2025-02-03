@@ -1,8 +1,4 @@
-﻿using DungeonTextRPG.Manager.Game;
-using DungeonTextRPG.Manager.Inventory;
-using System;
-
-public class ItemDatabase
+﻿public class ItemDatabase
 {
     private static ItemDatabase _instance;
 

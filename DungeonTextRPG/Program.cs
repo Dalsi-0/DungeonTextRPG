@@ -1,5 +1,4 @@
-﻿using DungeonTextRPG.Manager.Game;
-using DungeonTextRPG.Manager.SaveLoad;
+﻿using DungeonTextRPG.Manager;
 
 namespace DungeonTextRPG
 {

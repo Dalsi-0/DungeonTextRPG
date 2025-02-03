@@ -67,11 +67,11 @@
             Console.WriteLine();
             Console.WriteLine("    ┌───────────────────────────────────────────────────────────────────┐");
             Console.WriteLine("    │                             [인벤토리]                            │");
-            Console.WriteLine($"    │                           골드: {GameManager.instance.MyPlayer.GoldAmount,5} G                  │");
+            Console.WriteLine($"    │                           골드: {GameManager.instance.MyPlayer.GoldAmount,5} G                           │");
             Console.WriteLine("    ├───────────────────────────────────────────────────────────────────┤");
             DisplayCurrentPage(minIndex);
             Console.WriteLine($"    ├───────────────────────────────────────────────────────────────────┤");
-            Console.WriteLine($"    │                           [{InventoryPage}/{maxPage}] 페이지                           │");
+            Console.WriteLine($"    │                           [{InventoryPage}/{maxPage}] 페이지                            │");
             Console.WriteLine("    └───────────────────────────────────────────────────────────────────┘");
         }
 
@@ -222,8 +222,8 @@
             {
                 case EquipmentType.One_HandedWeapon:
                 case EquipmentType.Shield:
-                    if (SlotStatus["righthand"] == item) SlotStatus["righthand"] = null;
-                    if (SlotStatus["lefthand"] == item) SlotStatus["lefthand"] = null;
+                    if (SlotStatus["righthand"] == item) { SlotStatus["righthand"] = null;  }
+                    else if (SlotStatus["lefthand"] == item) {SlotStatus["lefthand"] = null;  }
                     break;
 
                 case EquipmentType.Two_HandedWeapon:
@@ -307,10 +307,13 @@
             EquipmentData itemData = item.GetEquipmentData();
 
             // 아이템이 장착된 상태면 해제
-            if (itemData.isEquiped) { UnequipItemFromSlot(item, itemData.Type); }
+            if (itemData.isEquiped) 
+            { 
+                UnequipItemFromSlot(item, itemData.Type);
+            }
 
             // 아이템 판매 후 골드 추가
-            GameManager.instance.MyPlayer.GoldAmount += itemData.Price;
+            GameManager.instance.MyPlayer.GoldAmount += (int)(itemData.Price * 0.85f);
             MyInventory.RemoveAt(itemNumber - 1 + minIndex);
 
             // 아이템의 키를 통해 ItemDatabase에서 해당 아이템을 찾고 매진 상태 해제
