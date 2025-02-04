@@ -162,8 +162,6 @@ namespace DungeonTextRPG.Manager
                 // actionMessages 배열을 사용하여 선택지 출력
                 for (int i = 0; i < arrayActionMessages.Length; i++)
                 {
-                    Console.BackgroundColor = ConsoleColor.Blue;
-                    Console.ForegroundColor = ConsoleColor.White;  // 텍스트 색상도 바꿔야 보입니다
                     Console.WriteLine($" {i + 1} - {arrayActionMessages[i]}");
                 }
 
