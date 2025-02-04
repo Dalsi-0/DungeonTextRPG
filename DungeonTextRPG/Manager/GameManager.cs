@@ -1,4 +1,4 @@
-﻿using static CsvReader;
+﻿using static TSVReader;
 
 namespace DungeonTextRPG.Manager
 {
@@ -16,47 +16,13 @@ namespace DungeonTextRPG.Manager
 
         public void StartGame()
         {
-            int LoadingCount = 0;
-            string dot = ".";
-            while (!isLoadData)
-            {
-                Console.Clear();
-                switch (LoadingCount)
-                {
-                    case 0:
-                        dot = ".";
-                        break;
-                    case 1:
-                        dot = "..";
-                        break;
-                    case 2:
-                        dot = "...";
-                        break;
-                    case 3:
-                        dot = "....";
-                        break;
-                    case 4:
-                        dot = ".....";
-                        break;
-                    case 5:
-                        LoadingCount = 0;
-                        break;
-                }
-                LoadingCount++;
-                Console.WriteLine($"Loading{dot}");
-                Thread.Sleep(300);
-            }
+            ShowLoadingAnimation();
+
             Console.Clear();
 
             if (SaveLoadManager.instance.LoadData())
             {
-                VisualTextManager.instance.DrawPainting(PaintingUI.Title);
-                Console.WriteLine("────────────────────────────────────────────────────────────────");
-                Console.WriteLine(" 던전 텍스트 RPG에 오신 여러분 환영합니다.");
-                Console.WriteLine(" 데이터 로드 완료! \n 게임을 시작하려면 아무 키나 누르세요...");
-                Console.WriteLine("────────────────────────────────────────────────────────────────");
-                Console.WriteLine();
-                Console.ReadKey(); // 콘솔 종료 방지
+                DisplayIntroMessage();
             }
             else
             {
@@ -66,6 +32,34 @@ namespace DungeonTextRPG.Manager
             StatusManager.instance.UpdateStats();
             VillageMenu();
         }
+
+        #region Loading, 인트로 관련
+        private void ShowLoadingAnimation()
+        {
+            int count = 0;
+            while (!isLoadData)
+            {
+                Console.Clear();
+                Console.WriteLine($"Loading{new string('.', count % 5 + 1)}");
+                count++;
+                Thread.Sleep(150);
+            }
+        }
+
+        private void DisplayIntroMessage()
+        {
+            VisualTextManager.instance.DrawPainting(PaintingUI.Title);
+            Console.WriteLine("────────────────────────────────────────────────────────────────");
+            Console.WriteLine(" 던전 텍스트 RPG에 오신 여러분 환영합니다.");
+            Console.WriteLine("           데이터 로드 완료! \n 게임을 시작하려면 아무 키나 누르세요...");
+            Console.WriteLine("────────────────────────────────────────────────────────────────");
+            Console.ReadKey();
+        }
+        #endregion
+
+
+
+
         #region 마을 관련
         public void VillageMenu()
         {
@@ -168,6 +162,8 @@ namespace DungeonTextRPG.Manager
                 // actionMessages 배열을 사용하여 선택지 출력
                 for (int i = 0; i < arrayActionMessages.Length; i++)
                 {
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                    Console.ForegroundColor = ConsoleColor.White;  // 텍스트 색상도 바꿔야 보입니다
                     Console.WriteLine($" {i + 1} - {arrayActionMessages[i]}");
                 }
 
