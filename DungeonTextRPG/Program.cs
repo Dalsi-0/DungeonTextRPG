@@ -1,5 +1,5 @@
 ﻿using DungeonTextRPG.Manager;
-using static CsvReader;
+using static TSVReader;
 
 namespace DungeonTextRPG
 {

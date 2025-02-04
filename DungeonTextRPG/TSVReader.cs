@@ -9,29 +9,13 @@ using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
-public class CsvReader
+public class TSVReader
 {
     private string _filePath;
 
-    public CsvReader(string filePath)
+    public TSVReader(string filePath)
     {
         _filePath = filePath;
-    }
-
-    public List<string[]> ReadCSV()
-    {
-        List<string[]> data = new List<string[]>();
-
-        using (StreamReader reader = new StreamReader(_filePath))
-        {
-            while (!reader.EndOfStream)
-            {
-                string line = reader.ReadLine();
-                string[] values = line.Split(','); // 쉼표(,) 기준으로 분리
-                data.Add(values);
-            }
-        }
-        return data;
     }
 
     // 구글 스프레드시트
@@ -127,25 +111,15 @@ public class CsvReader
         {
             switch (tmp)
             {
-                case "onehand":
-                    return EquipmentType.One_HandedWeapon;
-                    break;
+                case "onehand": return EquipmentType.One_HandedWeapon; break;
 
-                case "twohand":
-                    return EquipmentType.Two_HandedWeapon;
-                    break;
+                case "twohand": return EquipmentType.Two_HandedWeapon; break;
 
-                case "armor":
-                    return EquipmentType.Armor;
-                    break;
+                case "armor": return EquipmentType.Armor; break;
 
-                case "legs":
-                    return EquipmentType.Legs;
-                    break;
+                case "legs": return EquipmentType.Legs; break;
 
-                default:
-                    return EquipmentType.None;
-                    break;
+                default: return EquipmentType.None; break;
             }
         }
 
@@ -177,16 +151,9 @@ public class CsvReader
                 // DungeonName은 cols[1], DungeonRecommendedDef는 cols[2]에 해당
                 for (int i = 0; i < cols.Length; i++)
                 {
-                    if(i == 0)
-                    {
-                        dungeonName.Add(cols[1]); 
-                    }
-                    else if (i == 1) 
-                    {
-                        dungeonRecommendedDef.Add(int.Parse(cols[2])); 
-                    }
+                    if(i == 0) { dungeonName.Add(cols[1]); }
+                    else if (i == 1) { dungeonRecommendedDef.Add(int.Parse(cols[2])); }
                 }
-
             }
             DungeonManager.instance.SetDungeonInfo(dungeonName.ToArray(), dungeonRecommendedDef.ToArray());
         }

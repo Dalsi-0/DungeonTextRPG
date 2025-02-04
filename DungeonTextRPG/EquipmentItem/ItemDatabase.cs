@@ -33,7 +33,7 @@ public class ItemDatabase
             isSoldOut = false,
             isEquiped = false
         });
-
+        
         // 아이템을 Items 딕셔너리에 추가
         Items.Add(_Data.Code, clonedItem);
     }
